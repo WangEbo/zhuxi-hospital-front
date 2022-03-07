@@ -1,0 +1,323 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dt,
+dd,
+ul,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td,
+ol {
+  margin: 0;
+  padding: 0;
+}
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+body {
+  font: 12px "PingFang HK", "Microsoft YaHei", "Arial";
+  color: #000;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+ol,
+ul,
+li {
+  list-style-type: none;
+  vertical-align: middle;
+}
+img {
+  vertical-align: top;
+  border: 0;
+}
+input,
+select,
+textarea,
+button {
+  vertical-align: middle;
+}
+textarea,
+input {
+  text-indent: 10px;
+}
+/*表单元素默认有10像素的缩进*/
+input[type='submit'],
+input[type='button'],
+button {
+  text-indent: 0;
+  text-align: center;
+  cursor: pointer;
+}
+label,
+button,
+a {
+  cursor: pointer;
+}
+ins,
+em,
+b,
+i {
+  text-decoration: none;
+  font-style: normal;
+}
+/* 去掉浏览器激活样式 */
+select:focus,
+textarea:focus,
+input:focus,
+button {
+  outline: none;
+}
+/* 提示文字的初始样式 */
+input::-webkit-input-placeholder,
+input::-moz-input-placeholder,
+textarea::-webkit-textarea-placeholder,
+textarea::-moz-textarea-placeholder {
+  color: #999;
+  transition: color .5s;
+}
+/* 提示文字的激活样式 */
+input:focus::-webkit-input-placeholder,
+input:focus::-moz-input-placeholder,
+input:hover::-webkit-input-placeholder,
+input:hover::-moz-input-placeholder,
+textarea:focus::-webkit-input-placeholder,
+textarea:focus::-moz-input-placeholder,
+textarea:hover::-webkit-input-placeholder,
+textarea:hover::-moz-input-placeholder {
+  color: #c2c2c2;
+}
+/* table */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font: inherit;
+}
+/* a_link */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a[href] {
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+a:focus {
+  background-color: transparent;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+/*用来解决在安卓上的点击出现篮框问题*/
+body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/*解决ios上去除微信点击蓝色边框 */
+a:focus,
+input:focus,
+p:focus,
+div:focus {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+font {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  font-family: inherit;
+  font-style: inherit;
+  text-transform: inherit;
+}
+::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 4px;/*no*/
+  border-radius: 1.5px;/*no*/
+}
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button {
+  display: none;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  background-color: $activeColor;
+}
+/*滚动动画的样式*/
+.disable-hover {
+  pointer-events: none;
+}
+.scroll-animate.animated {
+  visibility: hidden;
+}
+.font-fadeIn font {
+  display: inline-block;
+}
+.scrolly {
+  transition: all 0.5s ease-in-out;
+}
+/* 浮动与清浮动 */
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.cl::after {
+  content: '\20';
+  display: block;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  clear: both;
+  visibility: hidden;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+.text_overflow {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+[data-ahref] {
+  cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: bolder;
+}
+
+
+
+.icon.iconfont{
+  color: inherit;
+  display: inline-block;
+}
+
+
+body{
+  background-color: $mainBgColor;
+}
+
+.bg-video{
+  width: 100%;
+  height: 31.3vw;
+  margin: 20px 0;/*no*/
+}
+@media screen and (max-width: 800px){
+  .bg-video{
+    height: 200px;/*no*/
+    margin: 15px 0;/*no*/
+  }
+}
+
+.vjs-poster{
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+  box-sizing: content-box;
+}
+.video-js .vjs-tech{
+  background-color: #fff;
+}
+.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar{
+  opacity: 0;
+}
+
+
+
+
+
+//element reset
+.el-tabs__nav-wrap{
+  overflow: unset;
+}
+.el-tabs__nav-scroll{
+  overflow: unset;
+}
+.el-tabs__nav{
+  float: unset;
+}
+
+
+
+//公共tab样式
+.y-tab{
+  position: relative;
+  .more{
+    position: absolute;
+    z-index: 3;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    line-height: 50px;
+    font-size: 18px;
+    color: rgb(162, 169, 179);
+  }
+}
+
+
+//tab 重置样式
+.el-tabs{
+  .el-tabs__header{
+    margin-bottom: 0;
+  }
+  .el-tabs__nav-wrap::after{
+      background-color: $tabMainColor;
+  }
+  .el-tabs__active-bar{
+    display: none;
+  }
+  .el-tabs__nav-scroll{
+    .el-tabs__nav {
+      .el-tabs__item{
+        color: $tabMainColor;
+        font-size: 18px;
+        line-height: 30px;
+        padding: 9px 25px;
+        letter-spacing: 4px;
+        height: auto;
+        position: relative;
+        &.is-active{
+          color: #fff;
+          background-color: $tabMainColor;
+          border-radius: 6px 6px 0 0;
+          @include bottomArrow;
+        }
+      }
+    }
+  }
+  
+  
+}
