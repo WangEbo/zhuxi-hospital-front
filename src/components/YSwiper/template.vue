@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     renderSwiper(){
-      console.log(this.list);
       const defaultOptions = {
         loop: true,
         speed: 500,

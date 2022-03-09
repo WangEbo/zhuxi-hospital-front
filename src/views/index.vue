@@ -1,197 +1,189 @@
 <template>
-  <div id="index-page">
-    <el-row class="row1 page-inner">
-      <el-col :span="9">
-        <div class="banner">
-          <YSwiper :list="r1BannerList" :config="{
-            nextButton: null,
-            prevButton: null,
-          }">
-            <div v-for="(item, i) in r1BannerList" :key="i" class="swiper-slide">
-              <img :src="item.pic" alt="">
-              <p class="slide-des">{{item.des}}</p>
-            </div>
-          </YSwiper>
-        </div>
-      </el-col>
-      <el-col :span="13" :offset="2">
-        <div class="y-tab">
-          <div class="more">更多>></div>
-          <el-tabs v-model="activeTab" @tab-click="tabChange">
-            <el-tab-pane class="news" :label="news.title" name="news">
-              <div class="top-news">
-                <h4 class="title">{{news.topNews().title}}</h4>
-                <div class="ellipsis">
-                  <div class="ellipsis-container">
-                    <div class="ellipsis-content content">{{news.topNews().intro}}</div>
-                    <div class="ellipsis-ghost">
-                        <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+  <layout>
+     <div id="index-page">
+      <el-row class="row1 page-inner">
+        <el-col :span="9">
+          <div class="banner">
+            <YSwiper :list="r1BannerList" :config="{
+              nextButton: null,
+              prevButton: null,
+            }">
+              <div v-for="(item, i) in r1BannerList" :key="i" class="swiper-slide">
+                <img :src="item.pic" alt="">
+                <p class="slide-des">{{item.des}}</p>
+              </div>
+            </YSwiper>
+          </div>
+        </el-col>
+        <el-col :span="13" :offset="2">
+          <div class="y-tab">
+            <div class="more">更多>></div>
+            <el-tabs v-model="activeTab" @tab-click="tabChange">
+              <el-tab-pane class="news" :label="news.title" name="news">
+                <div class="top-news">
+                  <h4 class="title">{{news.topNews().title}}</h4>
+                  <div class="ellipsis">
+                    <div class="ellipsis-container">
+                      <div class="ellipsis-content content">{{news.topNews().intro}}</div>
+                      <div class="ellipsis-ghost">
+                          <div class="ellipsis-placeholder"></div>
+                          <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <ul class="list">
-                <li v-for="(item, i) in news.list()" :key="i">
-                  <a class="fs16 h" :href="`./news?id=${item.id}`">
-                    <div class="des">
-                      <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
-                    </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
-                  </a>
-                </li>
-              </ul>
-            </el-tab-pane>
-            <el-tab-pane :label="hospitalVideos.title" name="hospitalVideos">
-              <div class="top-news">
-                <h4 class="title">{{news.topNews().title}}</h4>
-                <div class="ellipsis">
-                  <div class="ellipsis-container">
-                    <div class="ellipsis-content content">{{news.topNews().intro}}</div>
-                    <div class="ellipsis-ghost">
-                        <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <ul class="list">
-                <li v-for="(item, i) in news.list()" :key="i">
-                  <a class="fs16 h" :href="`./news?id=${item.id}`">
-                    <div class="des">
-                      <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
-                    </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
-                  </a>
-                </li>
-              </ul>
-            </el-tab-pane>
-            <el-tab-pane :label="wenyuan.title" name="wenyuan">
-              <div class="top-news">
-                <h4 class="title">{{news.topNews().title}}</h4>
-                <div class="ellipsis">
-                  <div class="ellipsis-container">
-                    <div class="ellipsis-content content">{{news.topNews().intro}}</div>
-                    <div class="ellipsis-ghost">
-                        <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+                <ul class="list">
+                  <li v-for="(item, i) in news.list()" :key="i">
+                    <a class="fs16 h" :href="`./news?id=${item.id}`">
+                      <div class="des">
+                        <span class="icnon iconfont icon-arrow-right"></span>
+                        <span class="des">{{item.title}}</span>
+                      </div>
+                      <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    </a>
+                  </li>
+                </ul>
+              </el-tab-pane>
+              <el-tab-pane :label="hospitalVideos.title" name="hospitalVideos">
+                <div class="top-news">
+                  <h4 class="title">{{news.topNews().title}}</h4>
+                  <div class="ellipsis">
+                    <div class="ellipsis-container">
+                      <div class="ellipsis-content content">{{news.topNews().intro}}</div>
+                      <div class="ellipsis-ghost">
+                          <div class="ellipsis-placeholder"></div>
+                          <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <ul class="list">
-                <li v-for="(item, i) in news.list()" :key="i">
-                  <a class="fs16 h" :href="`./news?id=${item.id}`">
-                    <div class="des">
-                      <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
+                <ul class="list">
+                  <li v-for="(item, i) in news.list()" :key="i">
+                    <a class="fs16 h" :href="`./news?id=${item.id}`">
+                      <div class="des">
+                        <span class="icnon iconfont icon-arrow-right"></span>
+                        <span class="des">{{item.title}}</span>
+                      </div>
+                      <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    </a>
+                  </li>
+                </ul>
+              </el-tab-pane>
+              <el-tab-pane :label="wenyuan.title" name="wenyuan">
+                <div class="top-news">
+                  <h4 class="title">{{news.topNews().title}}</h4>
+                  <div class="ellipsis">
+                    <div class="ellipsis-container">
+                      <div class="ellipsis-content content">{{news.topNews().intro}}</div>
+                      <div class="ellipsis-ghost">
+                          <div class="ellipsis-placeholder"></div>
+                          <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+                      </div>
                     </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
-                  </a>
-                </li>
-              </ul>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-      </el-col>
-    </el-row>
+                  </div>
+                </div>
+                <ul class="list">
+                  <li v-for="(item, i) in news.list()" :key="i">
+                    <a class="fs16 h" :href="`./news?id=${item.id}`">
+                      <div class="des">
+                        <span class="icnon iconfont icon-arrow-right"></span>
+                        <span class="des">{{item.title}}</span>
+                      </div>
+                      <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    </a>
+                  </li>
+                </ul>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-col>
+      </el-row>
 
-    <el-row class="row2 page-inner">
-      <el-col :span="9">
-        <div class="y-tab">
-          <div class="more">更多>></div>
-          <el-tabs :value="'notice'">
-            <el-tab-pane :label="notice.title" name="notice">
-              <ul class="list">
-                <li v-for="(item, i) in notice.data.slice(1, 5)" :key="i">
-                  <a class="fs16 h" :href="`./notice?id=${item.id}`">
-                    <div class="des">
-                      <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
-                    </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
-                  </a>
-                </li>
-              </ul>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-      </el-col>
-      <el-col :span="13" :offset="2">
-        <div class="y-tab">
-          <div class="more">更多>></div>
-          <el-tabs :value="'bid'" @tab-click="tabChange">
-            <el-tab-pane class="news" :label="bid.title" name="bid">
-              <ul class="list">
-                <li v-for="(item, i) in bid.data.slice(1, 5)" :key="i">
-                  <a class="fs16 h" :href="`./bid?id=${item.id}`">
-                    <div class="des">
-                      <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
-                    </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
-                  </a>
-                </li>
-              </ul>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-      </el-col>
-    </el-row>
+      <el-row class="row2 page-inner">
+        <el-col :span="9">
+          <div class="y-tab">
+            <div class="more">更多>></div>
+            <el-tabs :value="'notice'">
+              <el-tab-pane :label="notice.title" name="notice">
+                <ul class="list">
+                  <li v-for="(item, i) in notice.data.slice(1, 5)" :key="i">
+                    <a class="fs16 h" :href="`./notice?id=${item.id}`">
+                      <div class="des">
+                        <span class="icnon iconfont icon-arrow-right"></span>
+                        <span class="des">{{item.title}}</span>
+                      </div>
+                      <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    </a>
+                  </li>
+                </ul>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-col>
+        <el-col :span="13" :offset="2">
+          <div class="y-tab">
+            <div class="more">更多>></div>
+            <el-tabs :value="'bid'" @tab-click="tabChange">
+              <el-tab-pane class="news" :label="bid.title" name="bid">
+                <ul class="list">
+                  <li v-for="(item, i) in bid.data.slice(1, 5)" :key="i">
+                    <a class="fs16 h" :href="`./bid?id=${item.id}`">
+                      <div class="des">
+                        <span class="icnon iconfont icon-arrow-right"></span>
+                        <span class="des">{{item.title}}</span>
+                      </div>
+                      <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    </a>
+                  </li>
+                </ul>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-col>
+      </el-row>
 
-    <div class="div-bg bg1"></div>
+      <div class="div-bg bg1"></div>
 
 
-    <el-row class="row2 page-inner">
-      <el-col :span="9">
-        <div class="y-tab">
-          <div class="more">更多>></div>
-          <el-tabs :value="'overview'">
-            <el-tab-pane :label="overview.title" name="overview">
-              <p>{{overview.data}}</p>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-      </el-col>
-      <el-col :span="13" :offset="2">
-        <div class="y-tab">
-          <div class="more">更多>></div>
-          <el-tabs :value="'doctor'" @tab-click="tabChange">
-            <el-tab-pane class="doctor" :label="doctor.title" name="doctor">
-              <ul class="list">
-                <li v-for="(item, i) in doctor.data.slice(1, 5)" :key="i">
-                  <a class="fs16 h" :href="`./doctor?id=${item.id}`">
-                    
-                  </a>
-                </li>
-              </ul>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-      </el-col>
-    </el-row>
+      <el-row class="row2 page-inner">
+        <el-col :span="9">
+          <div class="y-tab">
+            <div class="more">更多>></div>
+            <el-tabs :value="'overview'">
+              <el-tab-pane :label="overview.title" name="overview">
+                <p>{{overview.data}}</p>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-col>
+        <el-col :span="13" :offset="2">
+          <div class="y-tab">
+            <div class="more">更多>></div>
+            <el-tabs :value="'doctor'" @tab-click="tabChange">
+              <el-tab-pane class="doctor" :label="doctor.title" name="doctor">
+                <ul class="list">
+                  <li v-for="(item, i) in doctor.data.slice(1, 5)" :key="i">
+                    <a class="fs16 h" :href="`./doctor?id=${item.id}`">
+                      
+                    </a>
+                  </li>
+                </ul>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-col>
+      </el-row>
 
-    <div class="div-bg bg2"></div>
-  </div>
+      <div class="div-bg bg2"></div>
+    </div>
+  </layout>
+ 
 </template>
 <script>
 
 import YSwiper from "@/components/YSwiper";
-import { imgUrlEncode } from "@/utils/common";
-import {
-  getNewsList,
-  getHospitalVideoList,
-  getWenyuanList,
-  getNoticeList,
-  getBidList,
-  getOverview,
-  getEquipmentList,
-  getSpTechList,
-  getSpecialtyList,
-  getDoctorList,
-} from "@/api/overview";
+import { imgUrlEncode, findNodeById, getMenus } from "@/utils/common";
+import { getArticlesList } from "@/api/content";
 
 export default {
   filter:{
@@ -225,7 +217,7 @@ export default {
 
       news: {
         title: "新闻动态",
-        req: getNewsList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -247,7 +239,7 @@ export default {
       },
       hospitalVideos: {
         title: "医院视频",
-        req: getHospitalVideoList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -263,7 +255,7 @@ export default {
       },
       wenyuan: {
         title: "中医文苑",
-        req: getWenyuanList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -279,7 +271,7 @@ export default {
       },
       notice: {
         title: "通知公告",
-        req: getNoticeList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -292,7 +284,7 @@ export default {
       },
       bid: {
         title: "招投标",
-        req: getBidList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -305,7 +297,7 @@ export default {
       },
       overview: {
         title: "医院简介",
-        req: getOverview,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -318,7 +310,7 @@ export default {
       },
       doctor: {
         title: "名医专家",
-        req: getDoctorList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -331,7 +323,7 @@ export default {
       },
       equipment: {
         title: "高新设备",
-        req: getEquipmentList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -344,7 +336,7 @@ export default {
       },
       tech: {
         title: "特色技术",
-        req: getSpTechList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -357,7 +349,7 @@ export default {
       },
       specialty: {
         title: "特色专科",
-        req: getSpecialtyList,
+        req: getArticlesList,
         params: {},
         moreLink: "", 
         data: [
@@ -391,10 +383,18 @@ export default {
       return 0;
     },
 
-    init(){
+    async init(){
+      let menus = await getMenus();
       this.moduleNames.forEach(name=> {
         let m = this[name];
-        m.req(m.params).then(res=> {
+
+        let categoryId = findNodeById(menus, m.title, 'childs', 'categoryTitle')
+        let params = Object.assign({}, m.params, { // 根据模块名称查找对应的 参数 categoryId值
+          pageNum: 1,
+          pageSize: 10,
+          categoryId
+        })
+        getArticlesList(params).then(res=> {
           this.$set(m, "data", res.data.list);
         });
       });
@@ -407,6 +407,8 @@ export default {
 </script>
 <style lang="scss">
 #index-page{
+
+  
   .el-row{
     margin-top: $moduleMargin;
   }

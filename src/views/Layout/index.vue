@@ -3,6 +3,7 @@
     <y-header></y-header>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
+      <slot></slot>
     </transition>
     <y-footer></y-footer>
   </div>

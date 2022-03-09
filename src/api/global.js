@@ -8,9 +8,12 @@ export function getConfig() {
 }
 
 
-export function getMenu() {
+export async function getMenu(id) {
   return request({
-    url:"/portal/home/route",
+    url: `/portal/category/list-with-child/${id || '0'}`,
     method:"get",
+    headers: {
+      'content-type' : 'application/x-www-form-urlencoded'
+    }
   });
 }

@@ -21,19 +21,24 @@
           text-color="#fff"
           active-text-color="#fff">
           <template v-for="(item, i) in menus">
-            <el-submenu :popper-append-to-body="false" v-if="item.childs && item.childs.length" :index="`${i+1}`" >
-              <template slot="title" :class="{active: item.active}"><a :href="item.url">{{item.name}}</a></template>
-              <el-menu-item class="child-menu" v-for="(child, ci) in item.childs" :key="ci" :index="`${i+1}-${ci+1}`"><a :href="child.url">{{child.name}}</a></el-menu-item>
+            <el-submenu :popper-append-to-body="false" v-if="item.childs && item.childs.length" :key="i" :index="`${i+1}`" >
+              <template slot="title" :class="{active: item.active}">
+                <router-link :to="item.path"><span>{{item.categoryTitle}}</span></router-link>
+              </template>
+              <el-menu-item v-for="(child, ci) in item.childs" :key="ci" class="child-menu" :index="`${i+1}-${ci+1}`">
+                <router-link :to="child.path"><span>{{child.categoryTitle}}</span></router-link>
+              </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else :key="i" :index="`${i+1}`" :class="{active: item.active}" ><a :href="item.url">{{item.name}}</a></el-menu-item>
+            <el-menu-item v-else :key="i" :class="{active: item.active}" :index="`${i+1}`">
+              <router-link  :to="item.path"> <span>{{item.categoryTitle}}</span></router-link>
+            </el-menu-item>
           </template>
             
         </el-menu>
       </div>
       <div class="banner">
         <YSwiper :list="r1BannerList" :config="{pagination: null}">
-          <div v-for="(item, i) in r1BannerList" :key="i" class="swiper-slide">
-            <img :src="item.pic" alt="">
+          <div v-for="(item, i) in r1BannerList" :key="i" :style="{'background-image': `url('${imgUrlEncode(item.pic)}')`}" class="swiper-slide">
           </div>
         </YSwiper>
       </div>
@@ -43,12 +48,9 @@
 </template>
 
 <script>
-import { getMenu } from "@/api/global";
-import { getConfig } from "@/api/global";
-import { getIndexList, getCateList, getNewsList } from "@/api/carousel";
+import { getMenus, imgUrlEncode, getConfig } from "@/utils/common";
+import { getIndexList } from "@/api/carousel";
 import YSwiper from "@/components/YSwiper";
-
-require("../../assets/imgs/logo.png");
 
 export default {
   name: "YHeader",
@@ -59,75 +61,21 @@ export default {
     return{
       info: {
         tel: "0719-2127895",
-        logo: "./img/logo.png",
+        logo: "",
       },
       activeIndex: "1",
       menus: [
         {
-          name: "首页",
-          url: "/",
-          childs: [
-          ],
-        },
-        {
-          name: "医院概况",
-          url: "overview.html",
+          categoryTitle: "首页",
+          categoryId: 0,
+          path: '',
           childs: [
             {
-              name: "品牌简介",
-              url: "overview.html",
-            },
-            {
-              name: "领导介绍",
-              url: "leaders.html",
-            },
-            {
-              name: "设备展示",
-              url: "equipments.html",
-            },
-            {
-              name: "科研成果",
-              url: "equipments.html",
-            },
-            {
-              name: "地理位置",
-              url: "locaiton.html",
-            },
-          ],
-        },
-        {
-          name: "医院动态",
-          url: "notice.html",
-          childs: [
-            {
-              name: "通知公告",
-              url: "notice.html",
-            },
-            {
-              name: "招投标公告",
-              url: "bidding.html",
-            },
-            {
-              name: "新闻动态",
-              url: "news.html",
-            },
-            {
-              name: "医院专题",
-              url: ".html",
-            },
-            {
-              name: "医院视频",
-              url: "news.html",
-            },
-          ],
-        },
-        {
-          name: "官方商城",
-          url: "goods.html",
-          childs: [
-            {
-              name: "跑步系列",
-              url: "goods_cate.html?id=1",
+              categoryTitle: "",
+              path: '',
+              categoryId: 0,
+              childs: [
+              ],
             },
           ],
         },
@@ -139,7 +87,7 @@ export default {
     };
   },
   beforeCreate(){
-    localStorage.removeItem("config");
+
   },
   created(){
     this.getR1BannerList();
@@ -147,12 +95,12 @@ export default {
   },
   mounted(){
     
-    getConfig().then(res=> {
-      // localStorage.setItem("config", JSON.stringify(res.data));
-      // this.logo = res.data.logo;
+    getConfig().then(config=> {
+      this.info.logo = config.logo
     });
   },
   methods: {
+    imgUrlEncode,
     showChild(curItem){
       try{
         this.menus.forEach(item=> {
@@ -171,9 +119,10 @@ export default {
       location.href = `./search.html?k=${k}`;
     },
     async getMenu(){
-      // let res = await getMenu()
-      // this.menus = res.data;
-      this.setActiveMenu();
+      let menus = await getMenus()
+      console.log(menus);
+      this.$set(this, 'menus', menus)
+      // this.setActiveMenu();
     },
     setActiveMenu(){
       let pathname = location.pathname,
