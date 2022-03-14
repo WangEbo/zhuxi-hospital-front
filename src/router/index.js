@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { getMenu } from "@/api/global";
-
+import store from "@/store";
+import { findNodeById } from "@/utils/common";
 Vue.use(VueRouter);
 
 /* Layout */
 import Layout from "@/views/Layout";
-
 /* List */
 import List from '@/components/List/index.vue'
 /* Articles */
@@ -24,6 +24,7 @@ import Articles from '@/components/Articles/index.vue'
   }
  **/
 
+// 获取路由排版类型
 const getCustomerType = (menu)=> {
   switch(menu.categoryTitle){
     case '首页': 
@@ -60,6 +61,7 @@ const generateRouter = async ()=> {
   menus = menus.data
   console.log(menus);
 
+  //根据配置生成路由
   let _generateRouter = (menus)=> {
     for(let i = 0;i< menus.length;i++){
       let item = menus[i];
@@ -89,6 +91,8 @@ const generateRouter = async ()=> {
   }
   _generateRouter(menus)
 
+  //缓存菜单
+  store.dispatch('CacheMenus', menus)
   localStorage.setItem('menus', JSON.stringify(menus))
 
   let routers = [
@@ -99,44 +103,32 @@ const generateRouter = async ()=> {
 
   console.log(routers);
 
-  return new VueRouter({
+  const router = new VueRouter({
     mode: "history", //后端支持可开
     scrollBehavior: () => ({ y: 0 }),
     routes: routers,
   })
+
+  //查找当前激活菜单
+  router.beforeEach((to, from ,next)=> {
+    let { path } = to;
+    console.log(1);
+    let { matchNode, matchPath } = findNodeById(menus, path, 'childs', 'path', null)
+
+    let curLevel1Menu = matchPath[0] ? matchPath[0] : matchPath[1];
+    if(matchPath.length == 1){
+      curLevel1Menu = matchNode
+    }
+    store.commit('SetcurLevel1Menu', curLevel1Menu)
+    store.commit('SetCurMenu', matchNode)
+    store.commit('SetMenuPath', matchPath)
+
+    next()
+  })
+  
+  return router
 }
 
-// export const constantRouterMap = [
-  // { path: "/404", component: () => import("@/views/404"), hidden: true },
-  // {
-  //   path: "",
-  //   component: Layout,
-  //   redirect: "/index",
-  //   children: [
-  //     {
-  //       path: "index",
-  //       name: "index",
-  //       component: () => import("@/views/index"),
-  //       meta: { title: "首页", icon: "index" },
-  //     }
-  //   ],
-  // },
-  // {
-  //   path: "/overview",
-  //   component: Layout,
-  //   redirect: "/overview",
-  //   name: "overview",
-  //   meta: { title: "医院概况", icon: "overview" },
-  //   children: [
-  //     {
-  //       path: "overview",
-  //       name: "overview-location",
-  //       component: () => import("@/views/overview/location"),
-  //       meta: { title: "地理位置", icon: "overview-location" },
-  //     },
-  //   ],
-  // },
-// ];
 
 export default generateRouter;
 

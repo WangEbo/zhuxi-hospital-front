@@ -11,7 +11,7 @@ import generateRouter from "./router";
 import store from "./store";
 import Layout from "@/views/Layout";
 
-import { getConfig } from "@/api/global";
+
 
 Vue.component('Layout', Layout)
 Vue.use(ElementUI, { locale });
@@ -21,9 +21,6 @@ Vue.config.productionTip = false;
 localStorage.removeItem('menus')
 localStorage.removeItem('config');
 
-getConfig().then(res=> {
-  localStorage.setItem("config", JSON.stringify(res.data));
-})
 
 generateRouter().then(router=> {
   new Vue({
@@ -32,6 +29,9 @@ generateRouter().then(router=> {
     store,
     template: "<App/>",
     components: { App },
+    beforeCreate(){
+      store.dispatch('GetConfig')
+    }
   });
 })
 

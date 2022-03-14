@@ -67,7 +67,7 @@
         .el-menu-item, .el-submenu__title{
           height: $navH;
           line-height: $navH;
-          a{
+          span{
             font-size: 17px;
           }
         }
@@ -79,6 +79,12 @@
         }
 
         .el-submenu{
+          &.active{
+            >.el-submenu__title{
+              border-bottom: 0;
+              background-color: rgb(129, 39, 41)!important;
+            }
+          }
           .el-icon-arrow-down{
             display: none;
           }

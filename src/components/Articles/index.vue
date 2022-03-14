@@ -12,7 +12,8 @@
   </layout>
 </template>
 <script>
-import { getArticlesById } from "@/api/content";
+import { getArticleById } from "@/api/content";
+import Recommend from '../Recommend'
 
 const defaultDetail = {
   contentTitle: null,//标题
@@ -31,6 +32,7 @@ export default {
     
   },
   components: {
+    Recommend
   },
   created() {
     this.getDetail()

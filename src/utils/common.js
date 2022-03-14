@@ -1,23 +1,30 @@
-export const findNodeById = (tree, id, childPath, idPath)=> {
+export const findNodeById = (tree, id, childPath, idPath, parent)=> {
   if(!tree.length)return
-  let matchNode;
+  let matchNode,
+      matchPath = [];
 
-  function _findNodeById(tree, id, childPath, idPath){
+  function _findNodeById(tree, id, childPath, idPath, parent){
     for(let i = 0;i< tree.length;i++){
-      if(matchNode)break
       let child = tree[i]
       if(child[idPath] == id){
         matchNode = child;
       }
+      if(matchNode){
+        matchPath.push(matchPath.length > 0 ? matchNode : parent)
+        break
+      }
       let childs = child[childPath];
       if(childs && childs.length){
-        _findNodeById(childs, id, childPath, idPath)
+        _findNodeById(childs, id, childPath, idPath, child)
       }
     }
   }
-  _findNodeById(tree, id, childPath, idPath)
+  _findNodeById(tree, id, childPath, idPath, parent)
   
-  return matchNode
+  return {
+    matchNode,
+    matchPath
+  }
 }
 
 

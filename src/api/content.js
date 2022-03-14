@@ -10,7 +10,7 @@ export function getArticlesList(params) {
   });
 }
 
-export function getArticlesById(id) {
+export function getArticleById(id) {
   return request({
     url:`/portal/content/${id}`,
     method:"get",

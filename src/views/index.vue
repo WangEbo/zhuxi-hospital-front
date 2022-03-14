@@ -182,8 +182,9 @@
 <script>
 
 import YSwiper from "@/components/YSwiper";
-import { imgUrlEncode, findNodeById, getMenus } from "@/utils/common";
-import { getArticlesList } from "@/api/content";
+import { imgUrlEncode, findNodeById } from "@/utils/common";
+import { getArticlesList, getArticleById } from "@/api/content";
+import { mapGetters } from 'vuex'
 
 export default {
   filter:{
@@ -194,6 +195,9 @@ export default {
   },
   created() {
     this.init();
+  },
+  computed: {
+    ...mapGetters(['menus'])
   },
   data() {
     let self = this;
@@ -297,7 +301,7 @@ export default {
       },
       overview: {
         title: "医院简介",
-        req: getArticlesList,
+        req: getArticleById,
         params: {},
         moreLink: "", 
         data: [
@@ -384,19 +388,30 @@ export default {
     },
 
     async init(){
-      let menus = await getMenus();
       this.moduleNames.forEach(name=> {
         let m = this[name];
 
-        let categoryId = findNodeById(menus, m.title, 'childs', 'categoryTitle')
-        let params = Object.assign({}, m.params, { // 根据模块名称查找对应的 参数 categoryId值
+        let { matchNode } = findNodeById(this.menus, m.title, 'childs', 'categoryTitle')
+        console.log(matchNode);
+        if(matchNode){
+          this.sendQeq(m, matchNode)
+        }
+      });
+    },
+    sendQeq(m, matchNode){
+      let params;
+      if(m.req == getArticlesList){
+        params = Object.assign({}, m.params, { // 根据模块名称查找对应的 参数 categoryId值
           pageNum: 1,
           pageSize: 10,
-          categoryId
+          categoryId: matchNode.categoryId,
+          categoryTitle: matchNode.categoryTitle,
         })
-        getArticlesList(params).then(res=> {
-          this.$set(m, "data", res.data.list);
-        });
+      }else{
+        params = matchNode.categoryId
+      }
+      m.req(params).then(res=> {
+        this.$set(m, "data", res.data.list);
       });
     },
     tabChange(){
