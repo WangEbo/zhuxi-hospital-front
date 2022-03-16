@@ -1,5 +1,5 @@
 <template>
-  <layout>
+  <layout v-cloak>
      <div id="index-page">
       <el-row class="row1 page-inner">
         <el-col :span="9">
@@ -24,7 +24,7 @@
                   <h4 class="title">{{news.topNews().title}}</h4>
                   <div class="ellipsis">
                     <div class="ellipsis-container">
-                      <div class="ellipsis-content content">{{news.topNews().intro}}</div>
+                      <div class="ellipsis-content content">{{news.topNews().contentDescription}}</div>
                       <div class="ellipsis-ghost">
                           <div class="ellipsis-placeholder"></div>
                           <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
@@ -49,7 +49,7 @@
                   <h4 class="title">{{news.topNews().title}}</h4>
                   <div class="ellipsis">
                     <div class="ellipsis-container">
-                      <div class="ellipsis-content content">{{news.topNews().intro}}</div>
+                      <div class="ellipsis-content content">{{news.topNews().contentDescription}}</div>
                       <div class="ellipsis-ghost">
                           <div class="ellipsis-placeholder"></div>
                           <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
@@ -74,7 +74,7 @@
                   <h4 class="title">{{news.topNews().title}}</h4>
                   <div class="ellipsis">
                     <div class="ellipsis-container">
-                      <div class="ellipsis-content content">{{news.topNews().intro}}</div>
+                      <div class="ellipsis-content content">{{news.topNews().contentDescription}}</div>
                       <div class="ellipsis-ghost">
                           <div class="ellipsis-placeholder"></div>
                           <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
@@ -151,7 +151,7 @@
             <div class="more">更多>></div>
             <el-tabs :value="'overview'">
               <el-tab-pane :label="overview.title" name="overview">
-                <p>{{overview.data}}</p>
+                <p>{{overview.data.contentDescription}}</p>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -227,7 +227,7 @@ export default {
         data: [
           {
             coverImg: "",
-            intro: "",
+            contentDescription: "",
             title: "",
             id: "",
             content: "",
@@ -249,7 +249,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -265,7 +265,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -281,7 +281,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -294,7 +294,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -307,8 +307,8 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
-            time1: "",
+            contentDescription: "",
+            contentDetails: "",
           },
         ],
       },
@@ -320,7 +320,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -333,7 +333,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -346,7 +346,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -359,7 +359,7 @@ export default {
         data: [
           {
             id: "",
-            des1: "",
+            contentDescription: "",
             time1: "",
           },
         ],
@@ -400,19 +400,23 @@ export default {
     },
     sendQeq(m, matchNode){
       let params;
-      if(m.req == getArticlesList){
-        params = Object.assign({}, m.params, { // 根据模块名称查找对应的 参数 categoryId值
-          pageNum: 1,
-          pageSize: 10,
-          categoryId: matchNode.categoryId,
-          categoryTitle: matchNode.categoryTitle,
-        })
-      }else{
-        params = matchNode.categoryId
-      }
-      m.req(params).then(res=> {
-        this.$set(m, "data", res.data.list);
-      });
+
+      params = Object.assign({}, m.params, { // 根据模块名称查找对应的 参数 categoryId值
+        pageNum: 1,
+        pageSize: 10,
+        categoryId: matchNode.categoryId,
+        categoryTitle: matchNode.categoryTitle,
+      })
+      getArticlesList(params).then(res=> {
+        console.log(matchNode);
+        if(matchNode.categoryType == '1'){// 列表类型模块
+          this.$set(m, "data", res.data.list);
+        }else if(matchNode.categoryType == '2' && res.data.total == 1){ //  图文类型模块
+          getArticleById(res.data.list[0].id).then(res=> {
+            this.$set(m, "data", res.data);
+          })
+        }
+      })
     },
     tabChange(){
 

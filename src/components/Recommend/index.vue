@@ -4,7 +4,7 @@
       <div class="r-title">{{curLevel1Menu.categoryTitle}}</div>
       <ul class="child-menu">
         <li v-for="(item, i) in curLevel1Menu.childs" :key="i">
-          <router-link :to="item.path">{{item.categoryTitle}}</router-link>
+          <span :to="item.path">{{item.categoryTitle}}</span>
         </li>
       </ul>
     </div>
@@ -112,6 +112,21 @@ export default {
 };
 </script>
 
-<style lang=''>
+<style lang='scss' scoped>
+.recommend{
+  width: 340px;
+  
+}
+.row1{
+  li{
+    line-height: 46px;
+    margin-bottom: 18px;
+  }
+}
 
+.row2{
+  li{
+    height: 100px;  
+  }
+}
 </style>

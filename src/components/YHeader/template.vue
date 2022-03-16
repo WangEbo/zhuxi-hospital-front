@@ -48,10 +48,12 @@
 
 <script>
 import { imgUrlEncode } from "@/utils/common";
-import { getIndexList } from "@/api/carousel";
+
 import YSwiper from "@/components/YSwiper";
 import { mapGetters } from 'vuex'
 
+import { getIndexList } from "@/api/carousel";
+import { getArticlesList } from "@/api/content";
 export default {
   name: "YHeader",
   components: {

@@ -112,7 +112,6 @@ const generateRouter = async ()=> {
   //查找当前激活菜单
   router.beforeEach((to, from ,next)=> {
     let { path } = to;
-    console.log(1);
     let { matchNode, matchPath } = findNodeById(menus, path, 'childs', 'path', null)
 
     let curLevel1Menu = matchPath[0] ? matchPath[0] : matchPath[1];
