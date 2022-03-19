@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     getBreadcrumb() {
-      let matched = this.$route.matched.filter(item => item.name)
+      let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
       const first = matched[0]
       if (first && first.name !== 'home') {
         // matched = [{ path: '/home', meta: { title: '首页' }}].concat(matched)

@@ -2,7 +2,7 @@
   <div class="layout">
     <y-header></y-header>
     <transition name="fade" mode="out-in">
-      <slot></slot>
+      <router-view></router-view>
     </transition>
     <y-footer></y-footer>
   </div>

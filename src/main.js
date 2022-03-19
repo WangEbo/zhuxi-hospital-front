@@ -34,6 +34,6 @@ generateRouter().then(router=> {
     }
   });
 }).catch(err=> {
-  
+  console.error(err);
 })
 

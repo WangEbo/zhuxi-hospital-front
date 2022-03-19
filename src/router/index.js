@@ -9,8 +9,12 @@ Vue.use(VueRouter);
 import Layout from "@/views/Layout";
 /* List */
 import List from '@/components/List/index.vue'
+import ListCard from '@/components/ListCard/index.vue'
+import TestCard from '@/components/TestCard.vue'
 /* Articles */
 import Articles from '@/components/Articles/index.vue'
+/* list item detail */
+import ArticleCard from '@/components/ArticleCard/index.vue'
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
  * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -24,30 +28,65 @@ import Articles from '@/components/Articles/index.vue'
   }
  **/
 
+const getTypeRoute = (route, parentWrap)=> {
+  let childrenWrap = parentWrap && parentWrap.children
+  switch(route.categoryType){
+    case '1':
+      if(childrenWrap && parentWrap.component.name == 'Layout'){
+        childrenWrap.push({
+          path: route.categoryPinyin,
+          component: List,
+          children: [
+            {
+              path: '/',
+              component: ListCard,
+              meta: { title: route.categoryTitle, },
+            },
+            {
+              path: 'detail/:id',
+              component: ArticleCard
+            }
+          ]
+        })
+      }
+      route.childs.push({
+        categoryPath: route.categoryPath+'/detail',
+        _useFlag: true,
+        path: 'findMenuInfoUse'
+      })
+
+      break
+    case '2':
+      if(childrenWrap && parentWrap.component.name == 'List'){
+        route.component = ArticleCard
+      }else if(childrenWrap && parentWrap.component.name == 'Layout'){
+        route.component = Articles  
+      }else if(!childrenWrap){
+        route.children = []
+      }
+      
+      break
+    case '3':
+      route.children = [
+        {
+          path: '/',
+          component: getCustomerComponent(route)
+        }
+      ]
+  }
+}
+
 // 获取路由排版类型
-const getCustomerType = (menu)=> {
+const getCustomerComponent = (menu)=> {
   switch(menu.categoryTitle){
     case '首页': 
-      Object.assign(menu, {
-        component: () => import("@/views/index"),
-      })
-      break
+    return () => import("@/views/index")
     case '院长信箱':
-      Object.assign(menu, {
-        component: () => import("@/views/email"),
-      })
-      break
+      return () => import("@/views/email")
     case '名医专家':
-      Object.assign(menu, {
-        component: () => import("@/views/doctors"),
-      })
-      break
+      return () => import("@/views/doctors")
     case '地理位置':
-      Object.assign(menu, {
-        component: () => import("@/views/overview/location"),
-        meta: { title: "地理位置", },
-      })
-      break
+      return () => import("@/views/overview/location")
   }
 }
 
@@ -57,49 +96,42 @@ const generateRouter = async ()=> {
   menus = menus.data
   console.log(menus);
   //根据配置生成路由
-  let _generateRouter = (menus, level)=> {
-    for(let i = 0;i< menus.length;i++){
-      let item = menus[i];
-  
-      // let pathArr = item.categoryPath.split('/')
-      Object.assign(item, {//路径/名称处理
-        path: item.categoryPath, // level == 1 ? '/'+ pathArr[pathArr.length - 1] : pathArr[pathArr.length - 1],
-        name: item.categoryPinyin,
-        meta: { title: item.categoryTitle, },
-      })
-      let childIsDetailRoute;
-      switch(item.categoryType){
-        case '1'://列表
-          item.component = List;
-          item.children = [
-            {
-              path: item.categoryPath + '/detail', ///:id
-              name: item.categoryPinyin + '-detail',
-              meta: { title: item.categoryTitle + '详情', },
-              component: Articles,
-              categoryPath: item.categoryPath+'/detail'
-            }
-          ]
-          if(!item.childs || !item.childs.length){
-            item.childs = item.children
-            childIsDetailRoute = true
-          } 
-          break
-        case '2'://图文详情
-          item.component = Articles;
-          break
-        case '3'://自定义
-          getCustomerType(item)
-          break
+
+  const _generateRouter = (menus, parentMenu, childrenWrap, level)=> {
+    //一级路由生成Layout 再将对应子路由添加至children中
+    for(let i=0; i<menus.length;i++){
+      let childRoute = menus[i]
+      if(childRoute._useFlag){
+        continue
       }
-      
-      if(item.childs && item.childs.length && !childIsDetailRoute){
-        item.children = item.childs;
-        _generateRouter(item.children, level+1)
+      Object.assign(childRoute, {//路径/名称处理
+        path: level == 1 ? '/'+childRoute.categoryPinyin : childRoute.categoryPinyin,
+        // name: childRoute.categoryPinyin,
+        breadcrumb: childRoute.categoryTitle,
+        meta: { title: childRoute.categoryTitle, },
+      })
+
+      childRoute.level = level
+      if(level == 1){
+        childRoute.component = Layout;
+        childRoute.children = []
+        if(childRoute.childs && childRoute.childs.length && childRoute.categoryType != '3'){
+          childRoute.redirect = childRoute.childs[0].categoryPath
+        }
+      }
+
+      getTypeRoute(childRoute, parentMenu)
+
+      if(childrenWrap){
+        childrenWrap.push(childRoute)
+      }
+      if(childRoute.childs && childRoute.childs.length){
+        _generateRouter(childRoute.childs, childRoute, childRoute.children, level+1)
       }
     }
   }
-  _generateRouter(menus, 1)
+  
+  _generateRouter(menus, null, null, 1)
 
   //缓存菜单
   store.dispatch('CacheMenus', menus)
@@ -116,7 +148,7 @@ const generateRouter = async ()=> {
   console.log(routers);
 
   const router = new VueRouter({
-    mode: "history", //后端支持可开
+    // mode: "history", //后端支持可开
     scrollBehavior: () => ({ y: 0 }),
     routes: routers,
   })

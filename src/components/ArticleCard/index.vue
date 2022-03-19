@@ -1,13 +1,13 @@
 <template>
   <!-- 图文详情 -->
-  <div class="route-wrap page-inner">
-    <Breadcrumb></Breadcrumb>
-    <div class="content-wrap">
-      <div class="article" >
-        <div class="content" v-html="detail.contentDetails"></div>
-      </div>
-      <Recommend></Recommend>
-      </div>
+  <div class="article" >
+    <div class="title">{{detail.contentTitle}}</div>
+    <div class="divide-line"></div>
+    <div class="row2">
+      <span class="time" >{{detail.contentDatetime}}</span>
+      <span>{{detail.contentAuthor}}</span>
+    </div>
+    <div class="content" v-html="detail.contentDetails"></div>
   </div>
 </template>
 <script>
@@ -26,9 +26,10 @@ const defaultDetail = {
   contentKeyword: null,//关键字
   contentImg: null,//缩略图
   contentSort: null,
+  contentAuthor: null,//作者
 }
 export default {
-  name: "Articles",
+  name: "ArticleCard",
   filter:{
     
   },
@@ -40,30 +41,17 @@ export default {
       detail: Object.assign({}, defaultDetail)
     };
   },
-  computed:{
-    ...mapGetters(['curLevel1Menu', 'curMenu']),
+  computed: {
   },
   created() {
-    console.log('init');
-    this.init()
+    this.getDetail()
   },
   mounted(){
     
   },
   methods: {
-    async init(){
-      let articleId = this.$route.params.id;
-      if(articleId){
-        this.getDetail(articleId)
-      }else{ // 图文导航的文章id需通过列表参数出第一条文章id后查询详情
-        let { data } = await getArticlesList({categoryId: this.curMenu.id})
-        if(data.total == 1){
-          this.getDetail(data.list[0].id)
-        }
-      }
-    },
-    getDetail(articleId){
-      getArticleById(articleId).then(res=> {
+    getDetail(){
+      getArticleById(this.$route.params.id).then(res=> {
         this.$set(this, 'detail', res.data)
       })
     }
@@ -81,6 +69,31 @@ export default {
 .article{
   flex: 1;
   margin-right: 40px;
+  .title{
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 60px;
+    text-align: center;
+  }
+  .divide-line{
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(to right, #666 0%, #ccc 50%, transparent 50%);
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+  }
+  .row2{
+    text-align: center;
+    font-size: 14px;
+    color: $lightTextColor;
+    margin: 15px;
+    span{
+      margin: 0 8px;
+    }
+  }
+  .content{
+    font-size: 14px;
+  }
 }
 </style>
 

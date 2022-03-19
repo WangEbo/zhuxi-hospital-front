@@ -1,5 +1,5 @@
 <template>
-  <Layout class="email">
+  <div class="email">
     <div class="route-wrap">
       <div class="left-part">
         <h4>请您留言</h4>
@@ -74,8 +74,7 @@
         </div>
       </div>
     </div>
-    
-  </Layout>
+  </div>
 </template>
 <script>
 
