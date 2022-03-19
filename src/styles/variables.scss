@@ -11,7 +11,7 @@ $mainColor: #b3000e;
 $mainBgColor: #fdfaf3;
 $tabMainColor: #904042;
 
-
+$greyBd: rgb(181, 181, 181);
 $moduleMargin: 20px;
 
 .max-wid1400{
@@ -22,6 +22,14 @@ $moduleMargin: 20px;
 .page-inner{
   width: 1500px;
   margin: 0 auto;
+}
+
+.route-wrap{
+  width: 1400px;
+  margin: 70px auto;
+  padding: 50px 60px;
+  background-color: #fff;
+  box-shadow: #e9dcc9 15px 15px 51px;
 }
 
 .fs16{

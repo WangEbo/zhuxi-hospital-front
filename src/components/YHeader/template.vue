@@ -112,7 +112,7 @@ export default {
       console.log(this.activeIndex);
     },
     goTarget(menu){
-      this.$router.push(menu.path)
+      this.$router.push(menu.categoryPath)
     },
     getBannerList(){
       getIndexList().then(res=> {

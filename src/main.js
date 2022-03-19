@@ -33,5 +33,7 @@ generateRouter().then(router=> {
       store.dispatch('GetConfig')
     }
   });
+}).catch(err=> {
+  
 })
 

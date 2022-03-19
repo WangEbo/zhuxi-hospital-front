@@ -1,12 +1,16 @@
 <template>
-  <el-breadcrumb class="app-breadcrumb" separator="/">
-    <transition-group name="breadcrumb">
-      <el-breadcrumb-item v-for="(item,index)  in levelList" :key="item.path" v-if="item.meta.title">
-        <span v-if="item.redirect==='noredirect'||index==levelList.length-1" class="no-redirect">{{item.meta.title}}</span>
-        <router-link v-else :to="item.redirect||item.path">{{item.meta.title}}</router-link>
-      </el-breadcrumb-item>
-    </transition-group>
-  </el-breadcrumb>
+  <div class="breadcrumb">
+    <span style="font-weight: 600;">您当前的位置：</span>
+    <el-breadcrumb class="app-breadcrumb" separator="/">
+      <transition-group name="breadcrumb">
+        <el-breadcrumb-item v-for="(item,index)  in levelList" :key="item.path" v-if="item.meta.title">
+          <span v-if="item.redirect==='noredirect'||index==levelList.length-1" class="no-redirect">{{item.meta.title}}</span>
+          <router-link v-else :to="item.redirect||item.path">{{item.meta.title}}</router-link>
+        </el-breadcrumb-item>
+      </transition-group>
+    </el-breadcrumb>
+  </div>
+  
 </template>
 
 <script>
@@ -41,13 +45,25 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   .app-breadcrumb.el-breadcrumb {
+    vertical-align: middle;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 50px;
     margin-left: 10px;
+    color: #000;
     .no-redirect {
-      color: #97a8be;
-      cursor: text;
+      color: #000;
+    }
+  }
+
+  .breadcrumb{
+    line-height: 50px;
+    border-bottom: 2px solid $mainTheme;
+    margin-bottom: 100px;
+    font-size: 16px;
+    >span{
+      display: inline-block;
+      vertical-align: middle;
     }
   }
 </style>

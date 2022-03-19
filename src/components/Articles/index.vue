@@ -5,8 +5,8 @@
       <Breadcrumb></Breadcrumb>
       <div class="content-wrap">
         <div class="article">
-          <div class="title">{{detail.contentTitle}}</div>
-          <div class="time">{{detail.contentDatetime}}</div>
+          <div class="title" v-if="isComDetail">{{detail.contentTitle}}</div>
+          <div class="time"  v-if="isComDetail">{{detail.contentDatetime}}</div>
           <div class="content" v-html="detail.contentDetails"></div>
         </div>
         <Recommend></Recommend>
@@ -44,10 +44,23 @@ export default {
       detail: Object.assign({}, defaultDetail)
     };
   },
+  // watch: {
+  //   '$router.query': {
+  //     handler(nval){
+  //       this.init()
+  //     },
+  //     deep: true,
+  //     immediate: true
+  //   }
+  // },
   computed:{
-    ...mapGetters(['curLevel1Menu'])
+    ...mapGetters(['curLevel1Menu']),
+    isComDetail(){
+      return !!this.$router.id
+    }
   },
   created() {
+    console.log('init');
     this.init()
   },
   mounted(){
@@ -76,7 +89,14 @@ export default {
 <style lang="scss">
 .content-wrap{
   display: flex;
-
+  img{
+    display: block;
+    width: 100%;
+  }
+}
+.article{
+  flex: 1;
+  margin-right: 40px;
 }
 </style>
 
