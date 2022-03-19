@@ -9,13 +9,16 @@ export const findNodeById = (tree, id, childPath, idPath, parent)=> {
       if(child[idPath] == id){
         matchNode = child;
       }
-      if(matchNode){
-        matchPath.push(matchPath.length > 0 ? matchNode : parent)
-        break
-      }
+
       let childs = child[childPath];
-      if(childs && childs.length){
+      if(!matchNode && childs && childs.length){
         _findNodeById(childs, id, childPath, idPath, child)
+      }
+
+      if(matchNode){
+        //深度优先时，依次向上出栈时 child 即是匹配的父节点
+        matchPath.push(child)
+        break
       }
     }
   }

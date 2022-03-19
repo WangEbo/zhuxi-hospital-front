@@ -20,7 +20,6 @@
         <Recommend></Recommend>
       </div>
     </div>
-    
   </Layout>
 </template>
 <script>
@@ -87,7 +86,7 @@ export default {
     },
     toDetail(item){
       let path = this.curMenu.categoryPath
-      this.$router.push(path + '/detail/' + item.id)
+      this.$router.push(path + '/detail?id=' + item.id)
     },
   },
 };

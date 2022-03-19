@@ -61,9 +61,9 @@ const generateRouter = async ()=> {
     for(let i = 0;i< menus.length;i++){
       let item = menus[i];
   
-      let pathArr = item.categoryPath.split('/')
+      // let pathArr = item.categoryPath.split('/')
       Object.assign(item, {//路径/名称处理
-        path: level == 1 ? '/'+ pathArr[pathArr.length - 1] : pathArr[pathArr.length - 1],
+        path: item.categoryPath, // level == 1 ? '/'+ pathArr[pathArr.length - 1] : pathArr[pathArr.length - 1],
         name: item.categoryPinyin,
         meta: { title: item.categoryTitle, },
       })
@@ -73,7 +73,7 @@ const generateRouter = async ()=> {
           item.component = List;
           item.children = [
             {
-              path: 'detail/:id',
+              path: item.categoryPath + '/detail', ///:id
               name: item.categoryPinyin + '-detail',
               meta: { title: item.categoryTitle + '详情', },
               component: Articles,
@@ -133,10 +133,8 @@ const generateRouter = async ()=> {
     }
     let { matchNode, matchPath } = findNodeById(menus, path, 'childs', 'categoryPath', null)
 
-    let curLevel1Menu = matchPath[0] ? matchPath[0] : matchPath[1];
-    if(matchPath.length == 1){
-      curLevel1Menu = matchNode
-    }
+    let curLevel1Menu = matchPath[matchPath.length - 1];
+
     store.commit('SetcurLevel1Menu', curLevel1Menu)
     store.commit('SetCurMenu', matchNode)
     store.commit('SetMenuPath', matchPath)
