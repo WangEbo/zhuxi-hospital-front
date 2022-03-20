@@ -50,6 +50,7 @@ import { mapGetters } from 'vuex'
 import { getArticlesList } from "@/api/content";
 import { findNodeById } from "@/utils/common";
 
+require('../../assets/imgs/child-menu.png')
 export default {
   name: '',
   data() {

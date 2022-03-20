@@ -19,12 +19,13 @@ exports.assetsPath = function (_path) {
 exports.cssLoaders = function (options) {
   options = options || {}
 
-  const cssLoader = {
+  const cssLoader =  {
     loader: 'css-loader',
     options: {
       sourceMap: options.sourceMap
     }
   }
+  
 
   const postcssLoader = {
     loader: 'postcss-loader',
@@ -57,11 +58,13 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
-        fallback: 'vue-style-loader'
+        fallback: 'vue-style-loader',
+        publicPath: '../../'
       })
     } else {
       return ['vue-style-loader'].concat(loaders)
     }
+
   }
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
