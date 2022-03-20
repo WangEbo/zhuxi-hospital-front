@@ -17,6 +17,10 @@ import { mapGetters } from 'vuex'
 import Recommend from '@/components/Recommend'
 import Breadcrumb from '@/components/Breadcrumb'
 import { getArticlesList } from "@/api/content";
+import { getUrlQuery } from "@/utils/common";
+
+let query = getUrlQuery();
+let keyword = decodeURIComponent(query.k);
 
 const defaultListQuery = {
   pageNum: 1,
@@ -55,13 +59,17 @@ export default {
     };
   },
   mounted(){
-    this.$nextTick(()=> {
-
-    });
+    
   },
   methods: {
     getList(){
-      getArticlesList({categoryId: this.curMenu.id}).then(res=> {
+      let params;
+      if(this.curMenu && this.curMenu.id){
+        params = Object.assign({}, this.listQuery, {categoryId: this.curMenu.id})
+      }else if(keyword){
+        params = Object.assign({}, this.listQuery, {keyword})
+      }
+      getArticlesList().then(res=> {
         this.$set(this, 'list', res.data.list)
         this.total = res.data.total
       })

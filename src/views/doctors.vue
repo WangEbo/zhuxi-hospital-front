@@ -1,30 +1,28 @@
 <template>
-  <Layout>
-    <div class="doctor-page route-wrap">
-      <div class="left-part">
+  <div class="doctor-page route-wrap">
+    <div class="left-part">
+      <ul>
+        <li v-for="(doctor, i) in doctorList" :key="i" class="">
+          <div class="doctor-card">
+            <div class="doctor-img"><img :src="doctor.coverImg" alt=""></div>
+            <div class="doctor-des"><strong>{{doctor.title}}，</strong>{{doctor.content}}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="right-part">
+      <div class="dep-item"  v-for="(parentItem, pi) in curLevel1Menu.childs" :key="pi">
+        <div class="bd-line"></div>
+        <h4>{{parentItem.categoryTitle}}</h4>
         <ul>
-          <li v-for="(doctor, i) in doctorList" :key="i" class="">
-            <div class="doctor-card">
-              <div class="doctor-img"><img :src="doctor.coverImg" alt=""></div>
-              <div class="doctor-des"><strong>{{doctor.title}}，</strong>{{doctor.content}}</div>
-            </div>
+          <li class="department" v-for="(item, ci) in parentItem" :key="ci">
+            >>{{item.categoryTitle}}
           </li>
         </ul>
       </div>
-      <div class="right-part">
-        <div class="dep-item"  v-for="(parentItem, pi) in curLevel1Menu" :key="pi">
-          <div class="bd-line"></div>
-          <h4>{{parentItem.categoryTitle}}</h4>
-          <ul>
-            <li class="department" v-for="(item, ci) in parentItem" :key="ci">
-              >>{{item.categoryTitle}}
-            </li>
-          </ul>
-        </div>
-      </div>
-      
     </div>
-  </Layout>
+    
+  </div>
 </template>
 
 <script>

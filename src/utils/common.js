@@ -58,31 +58,20 @@ export const imgUrlEncode = (path)=> {
   return r_path;
 };
 
-
-export const getConfig = async ()=> {
-  return new Promise((resolve, reject)=> {
-    let timer = setInterval(() => {
-      let config = localStorage.getItem("config");
-      if(!config){
-        return;
-      }else{
-        clearInterval(timer);
-        resolve(JSON.parse(config));
-      }
-    }, 500);
-  });
-};
-
-export const getMenus = async ()=> {
-  return new Promise((resolve, reject)=> {
-    let timer = setInterval(() => {
-      let menus = localStorage.getItem("menus");
-      if(!menus){
-        return;
-      }else{
-        clearInterval(timer);
-        resolve(JSON.parse(menus));
-      }
-    }, 500);
-  });
+export const getUrlQuery = () => {
+  var href = window.location.href.split("?")[1];
+  if (href == undefined) {
+    return {};
+  } else {
+    var hrefArr = href.split("&");
+    var query = {};
+    hrefArr.forEach(item=> {
+      query[item.split("=")[0]] = item.split("=")[1];
+    });
+    if (query) {
+      return query;
+    }else{
+      return {};
+    }
+  }
 };

@@ -2,11 +2,11 @@
   <header class="y-header">
     <div class="row1">
       <div class="row1-content">
-        <div class="logo"><img :src="config.logo" alt=""></div>
+        <div class="logo"><img @click="toIndex" :src="config.logo" alt=""></div>
         <div class="func-part">
           <p>急诊热线：{{config.hotline}}</p>
           <el-input placeholder="请输入搜索内容" v-model="keywords" class="input-with-select">
-            <el-button slot="append">搜索</el-button>
+            <el-button slot="append" @click="search">搜索</el-button>
           </el-input>
         </div>
       </div>
@@ -21,7 +21,7 @@
           text-color="#fff"
           active-text-color="#fff">
           <template v-for="(item, i) in menus">
-            <el-submenu :popper-append-to-body="false" :class="{active: curLevel1Menu.path === item.path}" v-if="item.childs && item.childs.length" :key="i" :index="`${i+1}`" >
+            <el-submenu :popper-append-to-body="false" :class="{active: curPage.path === item.path}" v-if="item.childs && item.childs.length" :key="i" :index="`${i+1}`" >
               <template slot="title" >
                 <span @click="goTarget(item)">{{item.categoryTitle}}</span>
               </template>
@@ -29,7 +29,7 @@
                 <span @click="goTarget(child)">{{child.categoryTitle}}</span>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else :key="'level1-'+i" :class="{active: curLevel1Menu.path === item.path }" :index="`${i+1}`">
+            <el-menu-item v-else :key="'level1-'+i" :class="{active: curPage.path === item.path }" :index="`${i+1}`">
               <span @click="goTarget(item)">{{item.categoryTitle}}</span>
             </el-menu-item>
           </template>
@@ -60,7 +60,10 @@ export default {
     YSwiper,  
   },
   computed: {
-    ...mapGetters(['menus', 'config', 'curMenu', 'curLevel1Menu',])
+    ...mapGetters(['menus', 'config', 'curMenu', 'curLevel1Menu',]),
+    curPage(){
+      return this.curLevel1Menu || {}
+    }
   },
   data(){
     return{
@@ -104,7 +107,12 @@ export default {
       if(!k){
         return;
       }
-      location.href = `./search.html?k=${k}`;
+      this.$router.push({
+        path: '/search', 
+        query: {
+          k: k
+        }
+      })
     },
     setActiveMenu(){
       let index1 = this.menus.indexOf(this.curLevel1Menu) + 1
@@ -119,6 +127,9 @@ export default {
         this.bannerList = res.data;
       });
     },
+    toIndex(){
+      this.$router.push('/')
+    }
   },
 };
 </script>

@@ -141,7 +141,18 @@ const generateRouter = async ()=> {
     ...menus,
     { path: "/", redirect: menus[0].path },
     // { path: "/doctors", component: () => import("@/views/doctors"), },
-    
+    { 
+      path: "/search", 
+      component: Layout, 
+      hidden: true,
+      children: [
+        {
+          path: '/',
+          component: () => import("@/views/search")
+        }
+      ]
+    },
+
     { path: "/404", component: () => import("@/views/404"), hidden: true },
   ]
 

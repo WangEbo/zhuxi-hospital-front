@@ -7,8 +7,8 @@
             nextButton: null,
             prevButton: null,
           }">
-            <div v-for="(item, i) in r1BannerList" :key="i" class="swiper-slide">
-              <img :src="item.pic" alt="">
+            <div v-for="(item, i) in news.data.slice(0,5)" :key="i" class="swiper-slide">
+              <img :src="item.contentImg" alt="">
               <p class="slide-des">{{item.des}}</p>
             </div>
           </YSwiper>
@@ -16,83 +16,87 @@
       </el-col>
       <el-col :span="13" :offset="2">
         <div class="y-tab">
-          <div class="more">更多>></div>
+          <div class="more"><a :href="`/${activeTabItem.categoryPath}`">更多>></a></div>
           <el-tabs v-model="activeTab" @tab-click="tabChange">
-            <el-tab-pane class="news" :label="news.title" name="news">
+
+            <el-tab-pane class="com-panel-1" :label="news.title" name="news">
               <div class="top-news">
-                <h4 class="title">{{news.topNews().title}}</h4>
+                <h4 class="title">{{news.topItem().contentTitle}}</h4>
                 <div class="ellipsis">
                   <div class="ellipsis-container">
-                    <div class="ellipsis-content content">{{news.topNews().contentDescription}}</div>
+                    <div class="ellipsis-content content">{{news.topItem().contentDescription}}</div>
                     <div class="ellipsis-ghost">
                         <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+                        <a class="detail ellipsis-more" :href="`/${news.categoryPath}/detail/${news.topItem().id}`"><span>...</span><span>[详情]</span></a>
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list">
                 <li v-for="(item, i) in news.list()" :key="i">
-                  <a class="fs16 h" :href="`./news?id=${item.id}`">
+                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
+                      <span class="des">{{item.contentTitle}}</span>
                     </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
                   </a>
                 </li>
               </ul>
             </el-tab-pane>
-            <el-tab-pane :label="hospitalVideos.title" name="hospitalVideos">
+
+            <el-tab-pane class="com-panel-1" :label="hospitalVideos.title" name="hospitalVideos">
               <div class="top-news">
-                <h4 class="title">{{news.topNews().title}}</h4>
+                <h4 class="title">{{hospitalVideos.topItem().contentTitle}}</h4>
                 <div class="ellipsis">
                   <div class="ellipsis-container">
-                    <div class="ellipsis-content content">{{news.topNews().contentDescription}}</div>
+                    <div class="ellipsis-content content">{{hospitalVideos.topItem().contentDescription}}</div>
                     <div class="ellipsis-ghost">
                         <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+                        <a class="detail ellipsis-more" :href="`/${hospitalVideos.categoryPath}/detail/${hospitalVideos.topItem().id}`"><span>...</span><span>[详情]</span></a>
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list">
-                <li v-for="(item, i) in news.list()" :key="i">
-                  <a class="fs16 h" :href="`./news?id=${item.id}`">
+                <li v-for="(item, i) in hospitalVideos.list()" :key="i">
+                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
+                      <span class="des">{{item.contentTitle}}</span>
                     </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
                   </a>
                 </li>
               </ul>
             </el-tab-pane>
-            <el-tab-pane :label="wenyuan.title" name="wenyuan">
+
+            <el-tab-pane class="com-panel-1" :label="wenyuan.title" name="wenyuan">
               <div class="top-news">
-                <h4 class="title">{{news.topNews().title}}</h4>
+                <h4 class="title">{{wenyuan.topItem().contentTitle}}</h4>
                 <div class="ellipsis">
                   <div class="ellipsis-container">
-                    <div class="ellipsis-content content">{{news.topNews().contentDescription}}</div>
+                    <div class="ellipsis-content content">{{wenyuan.topItem().contentDescription}}</div>
                     <div class="ellipsis-ghost">
                         <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" href=""><span>...</span><span>[详情]</span></a>
+                        <a class="detail ellipsis-more" :href="`/${wenyuan.categoryPath}/detail/${wenyuan.topItem().id}`"><span>...</span><span>[详情]</span></a>
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list">
-                <li v-for="(item, i) in news.list()" :key="i">
-                  <a class="fs16 h" :href="`./news?id=${item.id}`">
+                <li v-for="(item, i) in wenyuan.list()" :key="i">
+                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
+                      <span class="des">{{item.contentTitle}}</span>
                     </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
                   </a>
                 </li>
               </ul>
             </el-tab-pane>
+
           </el-tabs>
         </div>
       </el-col>
@@ -101,17 +105,17 @@
     <el-row class="row2 page-inner">
       <el-col :span="9">
         <div class="y-tab">
-          <div class="more">更多>></div>
+          <div class="more"><a :href="`/${notice.categoryPath}`">更多>></a></div>
           <el-tabs :value="'notice'">
             <el-tab-pane :label="notice.title" name="notice">
               <ul class="list">
-                <li v-for="(item, i) in notice.data.slice(1, 5)" :key="i">
-                  <a class="fs16 h" :href="`./notice?id=${item.id}`">
+                <li v-for="(item, i) in notice.data.slice(0, 3)" :key="i">
+                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
+                      <span class="des">{{item.contentTitle}}</span>
                     </div>
-                    <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
+                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
                   </a>
                 </li>
               </ul>
@@ -143,11 +147,9 @@
 
     <div class="div-bg bg1"></div>
 
-
     <el-row class="row2 page-inner">
       <el-col :span="9">
         <div class="y-tab">
-          <div class="more">更多>></div>
           <el-tabs :value="'overview'">
             <el-tab-pane :label="overview.title" name="overview">
               <p>{{overview.data.contentDescription}}</p>
@@ -157,7 +159,7 @@
       </el-col>
       <el-col :span="13" :offset="2">
         <div class="y-tab">
-          <div class="more">更多>></div>
+          <div class="more"><a :href="`/${doctor.categoryPath}`">更多>></a></div>
           <el-tabs :value="'doctor'" @tab-click="tabChange">
             <el-tab-pane class="doctor" :label="doctor.title" name="doctor">
               <ul class="list">
@@ -174,6 +176,70 @@
     </el-row>
 
     <div class="div-bg bg2"></div>
+
+    <div class="row3 page-inner">
+      <div class="y-tab">
+        <div class="more"><a :href="`/${activeTabItem2.categoryPath}`">更多>></a></div>
+        <el-tabs v-model="activeTab2" @tab-click="tabChange2">
+          <el-tab-pane class="com-panel-2" :label="equipment.title" name="equipment">
+              <ul class="list">
+                <li v-for="(item, i) in equipment.data.slice(0, 10)" :key="i">
+                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                    <div class="des">
+                      <span class="icnon iconfont icon-arrow-right"></span>
+                      <span class="des">{{item.contentTitle}}</span>
+                    </div>
+                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
+                  </a>
+                </li>
+              </ul>
+          </el-tab-pane>
+
+          <el-tab-pane class="com-panel-2" :label="tech.title" name="tech">
+              <ul class="list">
+                <li v-for="(item, i) in tech.data.slice(0, 10)" :key="i">
+                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                    <div class="des">
+                      <span class="icnon iconfont icon-arrow-right"></span>
+                      <span class="des">{{item.contentTitle}}</span>
+                    </div>
+                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
+                  </a>
+                </li>
+              </ul>
+          </el-tab-pane>
+
+          <el-tab-pane class="com-panel-2" :label="specialty.title" name="specialty">
+              <ul class="list">
+                <li v-for="(item, i) in specialty.data.slice(0, 10)" :key="i">
+                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                    <div class="des">
+                      <span class="icnon iconfont icon-arrow-right"></span>
+                      <span class="des">{{item.contentTitle}}</span>
+                    </div>
+                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
+                  </a>
+                </li>
+              </ul>
+          </el-tab-pane>
+        </el-tabs>
+      </div>  
+
+    </div>
+
+    <div class="row4 page-inner">
+      <div class="y-tab">
+          <el-tabs :value="'links'">
+            <el-tab-pane :label="'友情链接'" name="links">
+              <ul>
+                <li>
+                  <a href="http://www.nhfpc.gov.cn/">中华人民共和国国家卫生健康委员会</a>
+                </li>
+              </ul>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+    </div>
   </div>
  
 </template>
@@ -184,6 +250,16 @@ import { imgUrlEncode, findNodeById } from "@/utils/common";
 import { getArticlesList, getArticleById } from "@/api/content";
 import { mapGetters } from 'vuex'
 
+const articelItem = {
+  coverImg: "",
+  contentDescription: "",
+  contentTitle: '',
+  title: "",
+  id: "",
+  content: "",
+  createTime: "",
+  categoryPath: '',
+}
 export default {
   filter:{
     
@@ -195,7 +271,13 @@ export default {
     this.init();
   },
   computed: {
-    ...mapGetters(['menus'])
+    ...mapGetters(['menus']),
+    activeTabItem(){
+      return this[this.activeTab]
+    },
+    activeTabItem2(){
+      return this[this.activeTab2]
+    },
   },
   data() {
     let self = this;
@@ -204,6 +286,8 @@ export default {
         {url: "",href: "", des: ""},
       ],
       activeTab: "news",
+      activeTab2: 'equipment',
+
       moduleNames: [
         "news",
         "hospitalVideos",
@@ -221,18 +305,11 @@ export default {
         title: "新闻动态",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
-          {
-            coverImg: "",
-            contentDescription: "",
-            title: "",
-            id: "",
-            content: "",
-            createTime: "",
-          },
+          Object.assign({}, articelItem)
         ],
-        topNews(){
+        topItem(){
           return this.data && this.data.length && this.data.slice(0, 1)[0];
         },
         list(){
@@ -243,30 +320,29 @@ export default {
         title: "医院视频",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
+        topItem(){
+          return this.data && this.data.length && this.data.slice(0, 1)[0];
+        },
         list(){
           return this.data && this.data.length && this.data.slice(1, 6);
         },
       },
       wenyuan: {
         title: "中医文苑",
+        targetTitle: '医院文化',
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
+        topItem(){
+          return this.data && this.data.length && this.data.slice(0, 1)[0];
+        },
         list(){
           return this.data && this.data.length && this.data.slice(1, 6);
         },
@@ -275,33 +351,25 @@ export default {
         title: "通知公告",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
       },
       bid: {
         title: "招投标",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "",
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
       },
       overview: {
         title: "医院简介",
         req: getArticleById,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
           {
             id: "",
@@ -314,7 +382,7 @@ export default {
         title: "名医专家",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
           {
             id: "",
@@ -327,7 +395,7 @@ export default {
         title: "高新设备",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
           {
             id: "",
@@ -340,7 +408,7 @@ export default {
         title: "特色技术",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
           {
             id: "",
@@ -353,7 +421,7 @@ export default {
         title: "特色专科",
         req: getArticlesList,
         params: {},
-        moreLink: "", 
+        categoryPath: "", 
         data: [
           {
             id: "",
@@ -389,10 +457,17 @@ export default {
       this.moduleNames.forEach(name=> {
         let m = this[name];
 
-        let { matchNode } = findNodeById(this.menus, m.title, 'childs', 'categoryTitle')
-        console.log(matchNode);
+        //优先根据 targetTitle 匹配
+        console.log('menus:xxxxx');
+        console.log(this.menus);
+        let { matchNode } = findNodeById(this.menus, (m.targetTitle || m.title), 'childs', 'categoryTitle')
+
         if(matchNode){
+          m.categoryPath = matchNode.categoryPath
+          console.log(matchNode);
           this.sendQeq(m, matchNode)
+        }else{
+          console.log('no-matchNode');
         }
       });
     },
@@ -402,7 +477,7 @@ export default {
       params = Object.assign({}, m.params, { // 根据模块名称查找对应的 参数 categoryId值
         pageNum: 1,
         pageSize: 10,
-        categoryId: matchNode.categoryId,
+        categoryId: matchNode.id,
         categoryTitle: matchNode.categoryTitle,
       })
       getArticlesList(params).then(res=> {
@@ -416,17 +491,21 @@ export default {
         }
       })
     },
-    tabChange(){
-
+    tabChange(tabItem){
+      this.activeTab = tabItem.name
     },
+    tabChange2(tabItem){
+      this.activeTab2 = tabItem.name
+    }
   },
 };
 </script>
 <style lang="scss">
+$verticelMargin: 32px;
 #index-page{
   margin-top: 50px;
   .el-row{
-    margin-top: $moduleMargin;
+    margin-top: $verticelMargin;
   }
 
   .el-tab-pane{
@@ -442,14 +521,26 @@ export default {
     }
   }
 
+  .swiper-wrapper {
+    height: 100%;
+    .swiper-slide{
+      height: 100%;
+      img{
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+ 
   .div-bg{
     height: 93px;
-    margin: $moduleMargin 0;
+    margin: $verticelMargin 0;
     @include adptiveBg;
     &.bg1{
       background-image: url('../assets/imgs/div-1.jpg');
     }
-    &.bg1{
+    &.bg2{
       background-image: url('../assets/imgs/div-2.jpg');
     }
   }
@@ -466,10 +557,10 @@ export default {
     }
 
     .el-tab-pane{
-      height: 300px;
+      height: 332px;
     }
 
-    .news{
+    .com-panel-1{
       span.iconfont{
         color: #676767;
         font-weight: 600;
@@ -506,7 +597,13 @@ export default {
     }
   }
   
-
+   .row4{
+    margin: $verticelMargin auto;
+    .el-tab-pane{
+      background-color: transparent;
+      border: 0;
+    }
+  }
   
 }
 </style>
