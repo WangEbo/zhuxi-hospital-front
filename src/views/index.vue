@@ -169,7 +169,7 @@
                 <li v-for="(item, i) in doctor.data.slice(1, 5)" :key="i">
                   <router-link class="fs16 h" :to="`doctor?id=${item.id}`">
                     <div class="doctor-item" >
-                      <img :src="item.coverImg" alt="">
+                      <img :src="item.contentImg" alt="">
                       <p>{{item.contentTitle}}</p>
                     </div>
                   </router-link>
@@ -192,7 +192,7 @@
                 <li v-for="(item, i) in equipment.data.slice(0, 10)" :key="i">
                   <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="equipment-item" >
-                      <img :src="item.coverImg" alt="">
+                      <img :src="item.contentImg" alt="">
                       <p>{{item.contentTitle}}</p>
                     </div>
                   </router-link>
