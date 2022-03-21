@@ -9,13 +9,15 @@
           </div>
         </li>
       </ul>
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="listQuery.pageSize" :page-sizes="[10,15,20]" :total="total">
+      </el-pagination>
     </div>
     <div class="right-part">
       <div class="dep-item"  v-for="(parentItem, pi) in curLevel1Menu.childs" :key="pi">
         <div class="bd-line"></div>
         <h4>{{parentItem.categoryTitle}}</h4>
         <ul>
-          <li class="department" v-for="(item, ci) in parentItem" :key="ci">
+           <li :class="['department', route.query.id == item.id ? 'active' : '']" v-for="(item, ci) in parentItem" :key="ci">
             >>{{item.categoryTitle}}
           </li>
         </ul>
@@ -50,13 +52,31 @@ export default {
   },
   watch:{
   },
-  methods: {},
+  created(){
+    this.getList()
+  },
+  methods: {
+    getList(){
+      getArticlesList({id: this.curMenu.id}).then(res=> {
+        this.$set(this, 'doctorList', res.data.list)
+        this.total = res.data.total
+      })
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .doctor-page{
   display: flex;
+
+  .el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color: $mainTheme;
+  }
+  .el-pagination.is-background .el-pager li:not(.disabled):hover{
+    color: $mainTheme;
+  }
+  
   .left-part{
     flex: 1;
     margin-right: 50px;

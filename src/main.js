@@ -10,10 +10,12 @@ import App from "./App";
 import generateRouter from "./router";
 import store from "./store";
 import Layout from "@/views/Layout";
-
+import SliceCard from '@/components/SliceCard'
 
 
 Vue.component('Layout', Layout)
+Vue.component('SliceCard', SliceCard)
+
 Vue.use(ElementUI, { locale });
 
 Vue.config.productionTip = false;

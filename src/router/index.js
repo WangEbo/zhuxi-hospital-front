@@ -90,6 +90,31 @@ const getCustomerComponent = (menu)=> {
   }
 }
 
+const getDoctorRoute = (doctorRoute, parentMenu, childrenWrap, level)=> {
+  let childs = doctorRoute.childs
+  if(!childs || !childs.length){
+    return
+  }
+  if(childrenWrap.length == 0){
+    childrenWrap.push({
+      path: '/',
+      redirect: childs[0].categoryPath
+    })
+  }
+  for(let i=0;i< childs.length;i++){
+    let childRoute =  childs[i]
+    childrenWrap.push(Object.assign({
+      path: childRoute.categoryPinyin,
+      breadcrumb: childRoute.categoryTitle,
+      meta: { title: childRoute.categoryTitle, },
+    }))
+
+    if(childRoute.childs && childRoute.length){
+      childRoute.children = []
+      getDoctorRoute(childRoute, doctorRoute, childRoute.children, level+1)
+    }
+  }
+}
 
 const generateRouter = async ()=> {
   let menus = await getMenu();
@@ -120,6 +145,10 @@ const generateRouter = async ()=> {
         }
       }
 
+      // if(childRoute.categoryTitle == '名医专家'){
+      //   getDoctorRoute(childRoute, parentMenu, childrenWrap, level)
+      //   continue
+      // }
       getTypeRoute(childRoute, parentMenu)
 
       if(childrenWrap){

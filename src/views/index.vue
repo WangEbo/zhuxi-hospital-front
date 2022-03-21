@@ -14,7 +14,7 @@
           </YSwiper>
         </div>
       </el-col>
-      <el-col :span="13" :offset="2">
+      <el-col :span="14" :offset="1">
         <div class="y-tab">
           <div class="more"><a :href="`/${activeTabItem.categoryPath}`">更多>></a></div>
           <el-tabs v-model="activeTab" @tab-click="tabChange">
@@ -109,7 +109,7 @@
           <el-tabs :value="'notice'">
             <el-tab-pane :label="notice.title" name="notice">
               <ul class="list">
-                <li v-for="(item, i) in notice.data.slice(0, 3)" :key="i">
+                <li v-for="(item, i) in notice.data.slice(0, 4)" :key="i">
                   <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
@@ -123,7 +123,7 @@
           </el-tabs>
         </div>
       </el-col>
-      <el-col :span="13" :offset="2">
+      <el-col :span="14" :offset="1">
         <div class="y-tab">
           <div class="more">更多>></div>
           <el-tabs :value="'bid'" @tab-click="tabChange">
@@ -152,12 +152,12 @@
         <div class="y-tab">
           <el-tabs :value="'overview'">
             <el-tab-pane :label="overview.title" name="overview">
-              <p>{{overview.data.contentDescription}}</p>
+              <SliceCard :to="overview.categoryPath" :text="overview.data.contentDescription"></SliceCard>
             </el-tab-pane>
           </el-tabs>
         </div>
       </el-col>
-      <el-col :span="13" :offset="2">
+      <el-col :span="14" :offset="1">
         <div class="y-tab">
           <div class="more"><a :href="`/${doctor.categoryPath}`">更多>></a></div>
           <el-tabs :value="'doctor'" @tab-click="tabChange">
@@ -269,6 +269,7 @@ export default {
   },
   created() {
     this.init();
+    window.indexVM = this
   },
   computed: {
     ...mapGetters(['menus']),
@@ -593,7 +594,7 @@ $verticelMargin: 32px;
   .row2{ 
     .el-tab-pane{
       height: 186px;
-      padding: 50px 70px;
+      padding: 30px 40px;
     }
   }
   
