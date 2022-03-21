@@ -3,10 +3,7 @@
     <el-row class="row1 page-inner">
       <el-col :span="9">
         <div class="banner">
-          <YSwiper :list="news.data" :config="{
-            nextButton: null,
-            prevButton: null,
-          }">
+          <YSwiper :list="news.data" :config="{}">
             <div v-for="(item, i) in news.data.slice(0,5)" :key="i" class="swiper-slide">
               <img :src="item.contentImg" alt="">
               <p class="slide-des">{{item.des}}</p>
@@ -153,6 +150,7 @@
     <el-row class="row2 row3 page-inner">
       <el-col :span="9">
         <div class="y-tab">
+          <div class="more"><router-link :to="`${overview.categoryPath}`">详情>></router-link></div>
           <el-tabs :value="'overview'">
             <el-tab-pane :label="overview.title" name="overview">
               <SliceCard :to="overview.categoryPath" :text="overview.data.contentDescription"></SliceCard>
