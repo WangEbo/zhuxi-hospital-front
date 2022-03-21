@@ -84,6 +84,7 @@ export default {
   .list-content{
     flex: 1;
     margin-right: 50px;
+    max-width: calc(100% - 410px);
   }
 
   .list-card{

@@ -21,16 +21,19 @@
 
             <el-tab-pane class="com-panel-1" :label="news.title" name="news">
               <div class="top-news">
-                <h4 class="title">{{news.topItem().contentTitle}}</h4>
-                <div class="ellipsis">
-                  <div class="ellipsis-container">
-                    <div class="ellipsis-content content">{{news.topItem().contentDescription}}</div>
-                    <div class="ellipsis-ghost">
-                        <div class="ellipsis-placeholder"></div>
-                        <router-link class="detail ellipsis-more" :to="`${news.categoryPath}/detail/${news.topItem().id}`"><span>...</span><span>[详情]</span></router-link>
+                <router-link :to="`${news.categoryPath}/detail/${news.topItem().id}`">
+                  <h4 class="title">{{news.topItem().contentTitle}}</h4>
+                  <div class="ellipsis">
+                    <div class="ellipsis-container">
+                      <div class="ellipsis-content content">{{news.topItem().contentDescription}}</div>
+                      <div class="ellipsis-ghost">
+                          <div class="ellipsis-placeholder"></div>
+                          <router-link class="detail ellipsis-more" :to="`${news.categoryPath}/detail/${news.topItem().id}`"><span>...</span><span>[详情]</span></router-link>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </router-link>
+                
               </div>
               <ul class="list">
                 <li v-for="(item, i) in news.list()" :key="i">

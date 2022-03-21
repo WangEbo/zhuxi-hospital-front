@@ -141,7 +141,7 @@ export default {
       }else{
         path = this.notice.categoryPath
       }
-      this.$router.push(path + '/detail?id=' + item.id)
+      this.$router.push(path + '/detail/' + item.id)
     },
     toPage(item){
       this.$router.push(item.categoryPath)
