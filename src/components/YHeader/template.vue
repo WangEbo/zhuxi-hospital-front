@@ -22,14 +22,14 @@
           active-text-color="#fff">
           <template v-for="(item, i) in menus">
             <el-submenu :popper-append-to-body="false" :class="{active: curPage.path === item.path}" v-if="item.childs && item.childs.length" :key="i" :index="`${i+1}`" >
-              <template slot="title" >
+              <template slot="title"  v-if="item.categoryTitle">
                 <span @click="goTarget(item)">{{item.categoryTitle}}</span>
               </template>
-              <el-menu-item v-for="(child, ci) in item.childs" :key="ci" class="child-menu" :index="`${i+1}-${ci+1}`">
+              <el-menu-item v-show="child.categoryTitle" v-for="(child, ci) in item.childs" :key="ci" class="child-menu" :index="`${i+1}-${ci+1}`">
                 <span @click="goTarget(child)">{{child.categoryTitle}}</span>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else :key="'level1-'+i" :class="{active: curPage.path === item.path }" :index="`${i+1}`">
+            <el-menu-item v-show="item.categoryTitle" v-else :key="'level1-'+i" :class="{active: curPage.path === item.path }" :index="`${i+1}`">
               <span @click="goTarget(item)">{{item.categoryTitle}}</span>
             </el-menu-item>
           </template>

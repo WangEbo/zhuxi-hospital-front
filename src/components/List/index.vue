@@ -15,7 +15,7 @@
           <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="listQuery.pageSize" :page-sizes="[10,15,20]" :total="total">
           </el-pagination>
         </div> -->
-        <router-view ></router-view>
+        <router-view :key="$route.path"></router-view>
       </div>
       <Recommend></Recommend>
     </div>

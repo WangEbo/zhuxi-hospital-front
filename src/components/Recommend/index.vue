@@ -6,7 +6,7 @@
         <h4>{{curLevel1Menu.categoryTitle}}</h4>
       </div>
       <ul class="child-menu">
-        <li @click="toPage(item)" v-for="(item, i) in curLevel1Menu.childs" :key="i">
+        <li @click="toPage(item)" v-show="item.categoryTitle" v-for="(item, i) in curLevel1Menu.childs" :key="i">
           <span class="icon iconfont icon-bxs-right-arrow"></span>&nbsp;&nbsp;<span class="menu-link" :to="item.path">{{item.categoryTitle}}</span>
         </li>
       </ul>
@@ -17,7 +17,7 @@
         <h4>{{news.title}}</h4>
       </div>
       <ul class="news">
-        <li v-for="(item, i) in news.list.slice(0,3)" :key="i">
+        <li v-show="item.categoryTitle"  v-for="(item, i) in news.list.slice(0,3)" :key="i">
           <div class="news-card" @click="toDetail(item, 'news')">
             <div class="left-part"><img :src="item.contentImg" alt=""></div>
             <div class="right-part">
@@ -34,7 +34,7 @@
         <h4>{{notice.title}}</h4>
       </div>
       <ul class="notices">
-        <li v-for="(item, i) in notice.list.slice(0,5)" :key="i">
+        <li v-show="item.categoryTitle"  v-for="(item, i) in notice.list.slice(0,5)" :key="i">
           <div class="notice-card" @click="toDetail(item, 'notice')">
             <div class="intro">·{{item.contentTitle}}</div>
             <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 10)}}</div>
@@ -144,7 +144,7 @@ export default {
       this.$router.push(path + '/detail?id=' + item.id)
     },
     toPage(item){
-      this.$router.push(card.path)
+      this.$router.push(item.categoryPath)
     }
   },
 };

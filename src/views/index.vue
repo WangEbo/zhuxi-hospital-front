@@ -16,7 +16,7 @@
       </el-col>
       <el-col :span="14" :offset="1">
         <div class="y-tab">
-          <div class="more"><a :href="`/${activeTabItem.categoryPath}`">更多>></a></div>
+          <div class="more"><router-link :to="`${activeTabItem.categoryPath}`">更多>></router-link></div>
           <el-tabs v-model="activeTab" @tab-click="tabChange">
 
             <el-tab-pane class="com-panel-1" :label="news.title" name="news">
@@ -27,20 +27,20 @@
                     <div class="ellipsis-content content">{{news.topItem().contentDescription}}</div>
                     <div class="ellipsis-ghost">
                         <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" :href="`/${news.categoryPath}/detail/${news.topItem().id}`"><span>...</span><span>[详情]</span></a>
+                        <router-link class="detail ellipsis-more" :to="`${news.categoryPath}/detail/${news.topItem().id}`"><span>...</span><span>[详情]</span></router-link>
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list">
                 <li v-for="(item, i) in news.list()" :key="i">
-                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                  <router-link class="fs16 h" :to="`${news.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </el-tab-pane>
@@ -53,20 +53,20 @@
                     <div class="ellipsis-content content">{{hospitalVideos.topItem().contentDescription}}</div>
                     <div class="ellipsis-ghost">
                         <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" :href="`/${hospitalVideos.categoryPath}/detail/${hospitalVideos.topItem().id}`"><span>...</span><span>[详情]</span></a>
+                        <router-link class="detail ellipsis-more" :to="`${hospitalVideos.categoryPath}/detail/${hospitalVideos.topItem().id}`"><span>...</span><span>[详情]</span></router-link>
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list">
                 <li v-for="(item, i) in hospitalVideos.list()" :key="i">
-                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </el-tab-pane>
@@ -79,20 +79,20 @@
                     <div class="ellipsis-content content">{{wenyuan.topItem().contentDescription}}</div>
                     <div class="ellipsis-ghost">
                         <div class="ellipsis-placeholder"></div>
-                        <a class="detail ellipsis-more" :href="`/${wenyuan.categoryPath}/detail/${wenyuan.topItem().id}`"><span>...</span><span>[详情]</span></a>
+                        <router-link class="detail ellipsis-more" :to="`${wenyuan.categoryPath}/detail/${wenyuan.topItem().id}`"><span>...</span><span>[详情]</span></router-link>
                     </div>
                   </div>
                 </div>
               </div>
               <ul class="list">
                 <li v-for="(item, i) in wenyuan.list()" :key="i">
-                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </el-tab-pane>
@@ -105,18 +105,18 @@
     <el-row class="row2 page-inner">
       <el-col :span="9">
         <div class="y-tab">
-          <div class="more"><a :href="`/${notice.categoryPath}`">更多>></a></div>
+          <div class="more"><router-link :to="`${notice.categoryPath}`">更多>></router-link></div>
           <el-tabs :value="'notice'">
             <el-tab-pane :label="notice.title" name="notice">
               <ul class="list">
                 <li v-for="(item, i) in notice.data.slice(0, 4)" :key="i">
-                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </el-tab-pane>
@@ -125,18 +125,18 @@
       </el-col>
       <el-col :span="14" :offset="1">
         <div class="y-tab">
-          <div class="more">更多>></div>
+          <div class="more"><router-link :to="`${notice.categoryPath}`">更多>></router-link></div>
           <el-tabs :value="'bid'" @tab-click="tabChange">
             <el-tab-pane class="news" :label="bid.title" name="bid">
               <ul class="list">
-                <li v-for="(item, i) in bid.data.slice(1, 5)" :key="i">
-                  <a class="fs16 h" :href="`./bid?id=${item.id}`">
+                <li v-for="(item, i) in bid.data.slice(0, 5)" :key="i">
+                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.title}}</span>
+                      <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </el-tab-pane>
@@ -159,14 +159,14 @@
       </el-col>
       <el-col :span="14" :offset="1">
         <div class="y-tab">
-          <div class="more"><a :href="`/${doctor.categoryPath}`">更多>></a></div>
+          <div class="more"><router-link :to="`${doctor.categoryPath}`">更多>></router-link></div>
           <el-tabs :value="'doctor'" @tab-click="tabChange">
             <el-tab-pane class="doctor" :label="doctor.title" name="doctor">
               <ul class="list">
                 <li v-for="(item, i) in doctor.data.slice(1, 5)" :key="i">
-                  <a class="fs16 h" :href="`./doctor?id=${item.id}`">
+                  <router-link class="fs16 h" :to="`doctor?id=${item.id}`">
                     
-                  </a>
+                  </router-link>
                 </li>
               </ul>
             </el-tab-pane>
@@ -179,18 +179,18 @@
 
     <div class="row3 page-inner">
       <div class="y-tab">
-        <div class="more"><a :href="`/${activeTabItem2.categoryPath}`">更多>></a></div>
+        <div class="more"><router-link :to="`${activeTabItem2.categoryPath}`">更多>></router-link></div>
         <el-tabs v-model="activeTab2" @tab-click="tabChange2">
           <el-tab-pane class="com-panel-2" :label="equipment.title" name="equipment">
               <ul class="list">
                 <li v-for="(item, i) in equipment.data.slice(0, 10)" :key="i">
-                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
           </el-tab-pane>
@@ -198,13 +198,13 @@
           <el-tab-pane class="com-panel-2" :label="tech.title" name="tech">
               <ul class="list">
                 <li v-for="(item, i) in tech.data.slice(0, 10)" :key="i">
-                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
           </el-tab-pane>
@@ -212,13 +212,13 @@
           <el-tab-pane class="com-panel-2" :label="specialty.title" name="specialty">
               <ul class="list">
                 <li v-for="(item, i) in specialty.data.slice(0, 10)" :key="i">
-                  <a class="fs16 h" :href="`/${item.categoryPath}/${item.id}`">
+                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
-                  </a>
+                  </router-link>
                 </li>
               </ul>
           </el-tab-pane>
@@ -233,7 +233,7 @@
             <el-tab-pane :label="'友情链接'" name="links">
               <ul>
                 <li>
-                  <a href="http://www.nhfpc.gov.cn/">中华人民共和国国家卫生健康委员会</a>
+                  <router-link href="http://www.nhfpc.gov.cn/"  target="_blank">中华人民共和国国家卫生健康委员会</router-link>
                 </li>
               </ul>
             </el-tab-pane>
@@ -359,6 +359,7 @@ export default {
       },
       bid: {
         title: "招投标",
+        targetTitle: '招投标公告',
         req: getArticlesList,
         params: {},
         categoryPath: "",

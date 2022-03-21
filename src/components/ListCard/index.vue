@@ -69,7 +69,7 @@ export default {
       }else if(keyword){
         params = Object.assign({}, this.listQuery, {keyword})
       }
-      getArticlesList().then(res=> {
+      getArticlesList(params).then(res=> {
         this.$set(this, 'list', res.data.list)
         this.total = res.data.total
       })
