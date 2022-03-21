@@ -3,7 +3,7 @@
     <el-row class="row1 page-inner">
       <el-col :span="9">
         <div class="banner">
-          <YSwiper :list="r1BannerList" :config="{
+          <YSwiper :list="news.data" :config="{
             nextButton: null,
             prevButton: null,
           }">
