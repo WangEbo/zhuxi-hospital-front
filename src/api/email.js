@@ -1,8 +1,8 @@
 import request from "@/utils/request";
 
-export function getConfig() {
+export function getMessageList() {
   return request({
-    url:"/portal/universal-set",
+    url:"/portal/dean-mailbox/list",
     method:"get",
   });
 }

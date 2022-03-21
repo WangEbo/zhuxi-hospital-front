@@ -236,7 +236,7 @@
             <el-tab-pane :label="'友情链接'" name="links">
               <ul>
                 <li>
-                  <router-link href="http://www.nhfpc.gov.cn/"  target="_blank">中华人民共和国国家卫生健康委员会</router-link>
+                  <a href="http://www.nhfpc.gov.cn/"  target="_blank">中华人民共和国国家卫生健康委员会</a>
                 </li>
               </ul>
             </el-tab-pane>
