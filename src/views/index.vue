@@ -150,7 +150,7 @@
 
     <div class="div-bg bg1"></div>
 
-    <el-row class="row2 page-inner">
+    <el-row class="row2 row3 page-inner">
       <el-col :span="9">
         <div class="y-tab">
           <el-tabs :value="'overview'">
@@ -165,10 +165,13 @@
           <div class="more"><router-link :to="`${doctor.categoryPath}`">更多>></router-link></div>
           <el-tabs :value="'doctor'" @tab-click="tabChange">
             <el-tab-pane class="doctor" :label="doctor.title" name="doctor">
-              <ul class="list">
+              <ul class="list doctor-list">
                 <li v-for="(item, i) in doctor.data.slice(1, 5)" :key="i">
                   <router-link class="fs16 h" :to="`doctor?id=${item.id}`">
-                    
+                    <div class="doctor-item" >
+                      <img :src="item.coverImg" alt="">
+                      <p>{{item.contentTitle}}</p>
+                    </div>
                   </router-link>
                 </li>
               </ul>
@@ -185,14 +188,13 @@
         <div class="more"><router-link :to="`${activeTabItem2.categoryPath}`">更多>></router-link></div>
         <el-tabs v-model="activeTab2" @tab-click="tabChange2">
           <el-tab-pane class="com-panel-2" :label="equipment.title" name="equipment">
-              <ul class="list">
+              <ul class="list equipment-list">
                 <li v-for="(item, i) in equipment.data.slice(0, 10)" :key="i">
                   <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
-                    <div class="des">
-                      <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.contentTitle}}</span>
+                    <div class="equipment-item" >
+                      <img :src="item.coverImg" alt="">
+                      <p>{{item.contentTitle}}</p>
                     </div>
-                    <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
                   </router-link>
                 </li>
               </ul>
@@ -389,37 +391,27 @@ export default {
         params: {},
         categoryPath: "", 
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
       },
       equipment: {
         title: "高新设备",
+        targetTitle: '设备展示',
         req: getArticlesList,
         params: {},
         categoryPath: "", 
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
       },
       tech: {
         title: "特色技术",
+        targetTitle: '科研成果',
         req: getArticlesList,
         params: {},
         categoryPath: "", 
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
       },
       specialty: {
@@ -428,11 +420,7 @@ export default {
         params: {},
         categoryPath: "", 
         data: [
-          {
-            id: "",
-            contentDescription: "",
-            time1: "",
-          },
+          Object.assign({}, articelItem)
         ],
       },
     };
@@ -610,6 +598,57 @@ $verticelMargin: 32px;
     }
   }
   
+  .equipment-list{
+    li{
+      display: inline-block;
+    }
+  }
+  .equipment-item{
+    width: 240px;
+    margin: 0 20px 20px 0;
+    img{
+      display: block;
+      width: 100%;
+      height: 160px;
+      border-radius: 6px;
+    }
+    p{
+      font-size: 14px;
+      font-weight: 600;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .doctor-list{
+    li{
+      display: inline-block;
+    }
+  }
+  .doctor-item{
+    width: 145px;
+    margin: 0 20px 20px 0;
+    img{
+      display: block;
+      width: 100%;
+      height: 160px;
+      border-radius: 6px;
+    }
+    p{
+      font-size: 14px;
+      font-weight: 600;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+ 
+ .row3{
+   .el-tab-pane{
+     height: 440px;
+   }
+ }
 }
 </style>
 
