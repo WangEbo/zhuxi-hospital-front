@@ -18,7 +18,7 @@ import ArticleCard from '@/components/ArticleCard/index.vue'
 
 import DoctorListWrap from '@/components/DoctorListWrap.vue'
 import DoctorList from '@/components/DoctorList.vue'
-import doctorDetail from '@/components/doctorDetail.vue'
+import DoctorDetail from '@/components/DoctorDetail.vue'
 
 import DepartmentList from '@/components/DepartmentList.vue'
 /**
@@ -103,7 +103,7 @@ const getCustomerComponent = (menu)=> {
 let doctorLevelComponentMap = {
   '1': DoctorListWrap,
   '2': DoctorList,
-  '3': doctorDetail,
+  '3': DoctorDetail,
 }
 //科室特色组件对应层级
 let departmentLevelComponentMap = {
