@@ -35,7 +35,7 @@ import DepartmentList from '@/components/DepartmentList.vue'
  **/
 
 const DOCTOR_MENU_TITLE = '名医专家'
-const DEPARTMENT_MENU_TITLE = '特色专科'
+const DEPARTMENT_MENU_TITLE = '医院科室'
 
 const getTypeRoute = (route, parentWrap)=> {
   let childrenWrap = parentWrap && parentWrap.children
@@ -92,8 +92,6 @@ const getCustomerComponent = (menu)=> {
     return () => import("@/views/index")
     case '院长信箱':
       return () => import("@/views/email")
-    case '名医专家':
-      return () => import("@/views/doctors")
     case '地理位置':
       return () => import("@/views/overview/location")
   }
@@ -204,7 +202,6 @@ const generateRouter = async ()=> {
   let routers = [
     ...menus,
     { path: "/", redirect: menus[0].path },
-    // { path: "/doctors", component: () => import("@/views/doctors"), },
     { 
       path: "/search", 
       component: Layout, 
