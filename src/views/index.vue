@@ -149,11 +149,11 @@
 
     <el-row class="row2 row3 page-inner">
       <el-col :span="9">
-        <div class="y-tab">
+        <div class="y-tab overview-pane">
           <div class="more"><router-link :to="`${overview.categoryPath}`">详情>></router-link></div>
           <el-tabs :value="'overview'">
             <el-tab-pane :label="overview.title" name="overview">
-              <SliceCard :to="overview.categoryPath" :text="overview.data.contentDescription"></SliceCard>
+              <SliceCard :max="400" :to="overview.categoryPath" :text="overview.data.contentDescription"></SliceCard>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -164,7 +164,7 @@
           <el-tabs :value="'doctor'" @tab-click="tabChange">
             <el-tab-pane class="doctor" :label="doctor.title" name="doctor">
               <ul class="list doctor-list">
-                <li v-for="(item, i) in doctor.data.slice(1, 5)" :key="i">
+                <li v-for="(item, i) in doctor.data.slice(0, 10)" :key="i">
                   <router-link class="fs16 h" :to="`doctor?id=${item.id}`">
                     <div class="doctor-item" >
                       <img :src="item.contentImg" alt="">
@@ -625,7 +625,7 @@ $verticelMargin: 32px;
     }
   }
   .doctor-item{
-    width: 145px;
+    width: 138px;
     margin: 0 20px 20px 0;
     img{
       display: block;
@@ -645,6 +645,12 @@ $verticelMargin: 32px;
  .row3{
    .el-tab-pane{
      height: 440px;
+   }
+ }
+
+ .overview-pane{
+   a{
+     font-size: 16px;
    }
  }
 }
