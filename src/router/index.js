@@ -15,6 +15,12 @@ import TestCard from '@/components/TestCard.vue'
 import Articles from '@/components/Articles/index.vue'
 /* list item detail */
 import ArticleCard from '@/components/ArticleCard/index.vue'
+
+import DoctorListWrap from '@/components/DoctorListWrap.vue'
+import DoctorList from '@/components/DoctorList.vue'
+import doctorDetail from '@/components/doctorDetail.vue'
+
+import DepartmentList from '@/components/DepartmentList.vue'
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
  * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -27,6 +33,9 @@ import ArticleCard from '@/components/ArticleCard/index.vue'
     icon: 'svg-name'             the icon show in the sidebar,
   }
  **/
+
+const DOCTOR_MENU_TITLE = '名医专家'
+const DEPARTMENT_MENU_TITLE = '特色专科'
 
 const getTypeRoute = (route, parentWrap)=> {
   let childrenWrap = parentWrap && parentWrap.children
@@ -90,29 +99,51 @@ const getCustomerComponent = (menu)=> {
   }
 }
 
-const getDoctorRoute = (doctorRoute, parentMenu, childrenWrap, level)=> {
+//医生组件对应层级
+let doctorLevelComponentMap = {
+  '1': DoctorListWrap,
+  '2': DoctorList,
+  '3': doctorDetail,
+}
+//科室特色组件对应层级
+let departmentLevelComponentMap = {
+  '1': DoctorListWrap,
+  '2': DepartmentList,
+  '3': ArticleCard,
+}
+const getDoctorRoute = (doctorRoute, parentMenu, childrenWrap, level, type)=> {
   let childs = doctorRoute.childs
-  if(!childs || !childs.length){
+  if(!childs || !childs.length || doctorRoute._useFlag){
     return
   }
-  if(childrenWrap.length == 0){
-    childrenWrap.push({
-      path: '/',
-      redirect: childs[0].categoryPath
-    })
+  if(parentMenu && level < 4){
+    parentMenu.redirect = parentMenu.childs[0].categoryPath
   }
-  for(let i=0;i< childs.length;i++){
-    let childRoute =  childs[i]
-    childrenWrap.push(Object.assign({
-      path: childRoute.categoryPinyin,
-      breadcrumb: childRoute.categoryTitle,
-      meta: { title: childRoute.categoryTitle, },
-    }))
+  
+  for(let i =0; i<childs.length;i++){
 
-    if(childRoute.childs && childRoute.length){
-      childRoute.children = []
-      getDoctorRoute(childRoute, doctorRoute, childRoute.children, level+1)
+    let childRoute = childs[i]
+    //获取对应 组件与路由对应映射
+    const COMPONENTMAP = type == DOCTOR_MENU_TITLE ? doctorLevelComponentMap : departmentLevelComponentMap
+
+    childrenWrap.push(Object.assign(childRoute,{
+      path: childRoute.categoryPath,
+      breadcrumb: childRoute.categoryTitle,
+      name:  childRoute.categoryPinyin,
+      meta: { title: childRoute.categoryTitle, },
+      component: COMPONENTMAP[level+''],//获取对应层级路由组件
+      children: [],
+    }))
+    if(level == 3){
+      if(childRoute.categoryPath && childRoute.categoryPath.includes('/null')){
+        childRoute.categoryPath = childRoute.categoryPath.replace('/null', '/detail')
+      }else{
+        let lastSlashIndex = childRoute.categoryPath.lastIndexOf('/')
+        childRoute.categoryPath = childRoute.categoryPath.substr(0, lastSlashIndex) + '/detail'
+      }
+      childRoute.path = doctorRoute.categoryPath+'/detail/:id'
     }
+    getDoctorRoute(childRoute, doctorRoute, childRoute.children, level+1, type)
   }
 }
 
@@ -145,10 +176,14 @@ const generateRouter = async ()=> {
         }
       }
 
-      // if(childRoute.categoryTitle == '名医专家'){
-      //   getDoctorRoute(childRoute, parentMenu, childrenWrap, level)
-      //   continue
-      // }
+      //科室特色与名医专家路由需特殊处理
+      if(level == 1 && (childRoute.categoryTitle == DOCTOR_MENU_TITLE || childRoute.categoryTitle == DEPARTMENT_MENU_TITLE)){
+        getDoctorRoute(childRoute, parentMenu, childRoute.children, level, childRoute.categoryTitle)
+        console.log(childRoute.categoryTitle, childRoute);
+        continue
+      }
+
+      //正常列表->详情路由处理
       getTypeRoute(childRoute, parentMenu)
 
       if(childrenWrap){

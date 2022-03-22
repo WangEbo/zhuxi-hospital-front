@@ -65,6 +65,16 @@ ul.list{
 
 
 
+@media screen and(max-width: 1366px) {
+  .page-inner{
+    width: 1200px;
+  }
+  .route-wrap{
+    width: 1200px;
+  }
+}
+
+
 //多行裁剪文本样式
 .ellipsis {
   position: relative;

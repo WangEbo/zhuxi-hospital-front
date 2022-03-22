@@ -68,7 +68,8 @@
         .el-menu-item, .el-submenu__title{
           height: $navH;
           line-height: $navH;
-          span{
+          a, span{
+            line-height: 30px;
             font-size: 17px;
           }
         }
@@ -111,6 +112,63 @@
         height: 550px;
         @include adptiveBg;
       }
+    }
+  }
+}
+
+
+@media screen and(max-width: 1366px) {
+  .y-header{
+    .row1{
+      @include adptiveBg;
+      background-image: url('../../assets/imgs/header-bg1.jpg');
+      .row1-content{
+        width: 1260px;
+        height: 180px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .logo, .func-part{
+          height: 120px;
+        }
+        .logo{
+          width: 800px;
+          img{
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .func-part{
+          width: 280px;
+          height: 90px;
+          p{
+            font-size: 22px;
+            line-height: 1;
+            text-align: center;
+            margin-bottom: $moduleMargin;
+          }
+          .el-input-group{
+            font-size: 16px;
+            .el-input-group__append{
+              border-color: $mainTheme;
+              background-color: $mainTheme;
+              color: rgb(206, 204, 207);
+            }
+            input{
+              background-color: transparent;
+              border-color: $mainTheme;
+              border-right: 0;
+              &:focus{
+                border-color: $mainTheme;
+              }
+            }
+          }
+        }
+      }
+      
     }
   }
 }

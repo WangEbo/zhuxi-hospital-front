@@ -235,8 +235,8 @@
           <el-tabs :value="'links'">
             <el-tab-pane :label="'友情链接'" name="links">
               <ul>
-                <li>
-                  <a href="http://www.nhfpc.gov.cn/"  target="_blank">中华人民共和国国家卫生健康委员会</a>
+                <li v-for="(item, i) in config.links || []">
+                  <a :href="item.url"  target="_blank">{{item.name}}</a>
                 </li>
               </ul>
             </el-tab-pane>
@@ -275,7 +275,7 @@ export default {
     window.indexVM = this
   },
   computed: {
-    ...mapGetters(['menus']),
+    ...mapGetters(['menus', 'config']),
     activeTabItem(){
       return this[this.activeTab]
     },
@@ -592,7 +592,16 @@ $verticelMargin: 32px;
     margin: $verticelMargin auto;
     .el-tab-pane{
       background-color: transparent;
+      padding: 20px 0;
       border: 0;
+      li{
+        display: inline-block;
+        margin-right: 20px;
+        color: $mainTheme;
+      }
+      a{
+        font-size: 14px;
+      }
     }
   }
   

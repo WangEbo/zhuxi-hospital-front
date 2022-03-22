@@ -3,18 +3,6 @@
     <Breadcrumb></Breadcrumb>
     <div class="list-page">
       <div class="list-content">
-        <!-- <div class="list-wrap">
-          <ul  class="list">
-            <li v-for="(item, i) in list" :key="i">
-              <div class="list-card" @click="toDetail(item)">
-                <div class="intro">· {{item.contentTitle}}</div>
-                <div class="time">发布时间：{{item.contentDatetime && item.contentDatetime.substr(0, 10)}}</div>
-              </div>
-            </li>
-          </ul>
-          <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="listQuery.pageSize" :page-sizes="[10,15,20]" :total="total">
-          </el-pagination>
-        </div> -->
         <router-view :key="$route.path"></router-view>
       </div>
       <Recommend></Recommend>

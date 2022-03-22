@@ -1,19 +1,19 @@
 <template>
   <!-- 图文详情 -->
-  <div class="article" >
+  <div class="article doctor-detail" >
+    <div class="img-title">
+      <img :src="detail.contentImg" alt="">
+    </div>
     <div class="title">{{detail.contentTitle}}</div>
     <div class="divide-line"></div>
     <div class="row2">
-      <span class="time" >{{detail.contentDatetime}}</span>
-      <span>{{detail.contentAuthor}}</span>
+      简介
     </div>
     <div class="content" v-html="detail.contentDetails"></div>
   </div>
 </template>
 <script>
 import { getArticleById, getArticlesList } from "@/api/content";
-
-import { mapGetters } from 'vuex'
 
 const defaultDetail = {
   contentTitle: null,//标题
@@ -28,11 +28,12 @@ const defaultDetail = {
   contentAuthor: null,//作者
 }
 export default {
-  name: "ArticleCard",
+  name: "DoctorDetail",
   filter:{
     
   },
   components: {
+
   },
   data() {
     return {
@@ -57,6 +58,11 @@ export default {
 };
 </script>
 <style lang="scss">
+.doctor-detail{
+  margin: 0 20px;
+  padding: 20px;
+  background-color: rgb(247, 244, 239);
+}
 .content-wrap{
   display: flex;
   img{
@@ -74,16 +80,12 @@ export default {
     text-align: center;
   }
   .divide-line{
-    width: 100%;
-    height: 1px;
-    background-image: linear-gradient(to right, #666 0%, #ccc 50%, transparent 50%);
-    background-size: 8px 1px;
-    background-repeat: repeat-x;
+    
   }
   .row2{
-    text-align: center;
+    text-align: left;
     font-size: 14px;
-    color: $lightTextColor;
+    font-size: 16px;
     margin: 15px;
     span{
       margin: 0 8px;
@@ -91,6 +93,16 @@ export default {
   }
   .content{
     font-size: 14px;
+  }
+
+  .img-title{
+    text-align: center;
+    margin-bottom: 20px;
+    img{
+      display: inline-block;
+      width: 190px;
+      height: 260px;
+    }
   }
 }
 </style>

@@ -1,29 +1,22 @@
 <template>
-  <div class="doctor-page route-wrap">
-    <div class="left-part">
-      <ul>
-        <li v-for="(doctor, i) in doctorList" :key="i" class="">
-          <div class="doctor-card">
-            <div class="doctor-img"><img :src="doctor.coverImg" alt=""></div>
-            <div class="doctor-des"><strong>{{doctor.title}}，</strong>{{doctor.content}}</div>
-          </div>
-        </li>
-      </ul>
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="listQuery.pageSize" :page-sizes="[10,15,20]" :total="total">
-      </el-pagination>
-    </div>
-    <div class="right-part">
-      <div class="dep-item"  v-for="(parentItem, pi) in curLevel1Menu.childs" :key="pi">
-        <div class="bd-line"></div>
-        <h4>{{parentItem.categoryTitle}}</h4>
+    <div id="doctor-list">
+      <div v-if="menuPath.length<4">
         <ul>
-           <li :class="['department', route.query.id == item.id ? 'active' : '']" v-for="(item, ci) in parentItem" :key="ci">
-            >>{{item.categoryTitle}}
+          <li v-for="(doctor, i) in doctorList" :key="i" class="">
+            <div class="doctor-card">
+              <div class="doctor-img"><img :src="doctor.contentImg" alt=""></div>
+              <div class="doctor-des"><strong>{{doctor.contentTitle}}，</strong>
+                <SliceCard :to="`${curMenu.categoryPath}/detail/${doctor.id}`" :text="doctor.contentDescription"></SliceCard>
+              </div>
+            </div>
           </li>
         </ul>
+        <el-empty description="暂无数据" v-if="!doctorList.length"></el-empty>
+        <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="listQuery.pageSize" :page-sizes="[10,15,20]" :total="total">
+        </el-pagination>
       </div>
-    </div>
-    
+      
+      <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
@@ -31,10 +24,17 @@
 import { mapGetters } from 'vuex'
 import { getArticlesList } from "@/api/content";
 
+const defaultListQuery = {
+  pageNum: 1,
+  pageSize: 5,
+  keyword: null
+};
 export default {
-  name: '',
+  name: 'DoctorList',
   data() {
     return {
+      total: 0,
+      listQuery: Object.assign({}, defaultListQuery),
       doctorList: [
         {
           coverImg: "",
@@ -57,19 +57,31 @@ export default {
   },
   methods: {
     getList(){
-      getArticlesList({id: this.curMenu.id}).then(res=> {
+      let id =  this.curMenu.childs && this.curMenu.childs[0] && this.curMenu.childs[0].id;
+      if(!id){
+        this.$set(this, 'doctorList', res.data.list)
+        return
+      }
+      let params = Object.assign({}, this.listQuery, {categoryId: id})
+      getArticlesList(params).then(res=> {
         this.$set(this, 'doctorList', res.data.list)
         this.total = res.data.total
       })
-    }
+    },
+    handleSizeChange(val) {
+      this.listQuery.pageNum = 1;
+      this.listQuery.pageSize = val;
+      this.getList();
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNum = val;
+      this.getList();
+    },
   }
 };
 </script>
 
 <style lang="scss">
-.doctor-page{
-  display: flex;
-
   .el-pagination.is-background .el-pager li:not(.disabled).active{
     background-color: $mainTheme;
   }
@@ -95,56 +107,32 @@ export default {
       width: 140px;
       height: 260px;
       background-image: url('../assets/imgs/sy.png');
-      left: 0;
+      left: 10px;
       top: 50%;
       transform: translateY(-50%);
     }
     &::after{
       left: unset;
-      right: 0;
+      right: 10px;
       transform-origin: center center;
-      transform: rotateZ(180deg);
+      transform: translateY(-50%) rotateZ(180deg);
     }
-
-    .dep-img{
+    .doctor-img{
       width: 200px;
-      height: 290px;
+      height: 280px;
       img{
         display: block;
         width: 100%;
         height: 100%;
-        margin-right: 10px;
+        position: relative;
+        z-index: 9;
       }
     }
     .doctor-des{
+      margin-left: 10px;
       flex: 1;
     }
   }
 
-
-  .right-part{
-    width: 320px;
-  }
-  .dep-item{
-     position: relative;
-    h4{
-      font-size: 26px;
-      font-weight: 500;
-      display: inline-block;
-      padding: 0;
-      line-height: 54px;
-      border-bottom: 3px solid rgb(152, 98, 24);
-      position: relative;
-      z-index: 1;
-    }
-    .bd-line{
-      position: absolute;
-      bottom: 0;
-      height: 2px;
-      background-color: rgb(182, 182, 182);
-      width: 100%;
-    }
-  }
-}
 
 </style>

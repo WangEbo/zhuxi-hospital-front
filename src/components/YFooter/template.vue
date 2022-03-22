@@ -11,13 +11,14 @@
         <span>竹溪县中医院</span>
         <span>未经书面授权禁止使用本站信息</span>
       </div>
-      <div class="text">{{config.beianCode}}</div>
+      <div class="text">{{config.copyRright}}</div>
       <div class="text p3">
         <span>本站信息仅供参考</span>
         <span>不能作为诊断及医疗的依据</span>
         <span>本站如有转载或引用文章涉及版权及问题</span>
         <span>请速与我们联系</span>
       </div>
+      <div class="text">{{config.beianCode}}</div>
       </div>
       <div class="row2">
         <div class="p1"><img :src="config.wxQrCode" alt=""></div>

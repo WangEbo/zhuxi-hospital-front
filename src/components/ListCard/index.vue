@@ -8,14 +8,13 @@
         </div>
       </li>
     </ul>
+    <el-empty description="暂无数据" v-if="!list.length"></el-empty>
     <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes,prev, pager, next,jumper" :current-page.sync="listQuery.pageNum" :page-size="listQuery.pageSize" :page-sizes="[10,15,20]" :total="total">
     </el-pagination>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import Recommend from '@/components/Recommend'
-import Breadcrumb from '@/components/Breadcrumb'
 import { getArticlesList } from "@/api/content";
 import { getUrlQuery } from "@/utils/common";
 
@@ -37,7 +36,7 @@ export default {
     ...mapGetters(['curMenu']),
   },
   components: {
-    Recommend, Breadcrumb
+    
   },
   created() {
     this.getList();
@@ -92,22 +91,6 @@ export default {
 </script>
 <style lang="scss">
   
-  .list-page{
-    display: flex;
-    .el-pagination.is-background .el-pager li:not(.disabled).active{
-      background-color: $mainTheme;
-    }
-    .el-pagination.is-background .el-pager li:not(.disabled):hover{
-      color: $mainTheme;
-    }
-  }
-  .list-content{
-    flex: 1;
-    margin-right: 50px;
-    img{
-      max-width: 100%;
-    }
-  }
 
   .list-card{
     border-bottom: 1px dashed $greyBd;
