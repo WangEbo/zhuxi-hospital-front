@@ -9,6 +9,7 @@ import { getLocation } from "@/utils/common";
 let curLocation = {};
 import { mapGetters } from 'vuex'
 
+let map;
 export default {
   name: 'ZxMap',
   data(){
@@ -27,7 +28,7 @@ export default {
   },
   methods: {
     initMap(){
-        var map = new BMapGL.Map(this.$refs.map);  
+        map = new BMapGL.Map(this.$refs.map);  
         map.centerAndZoom(new BMapGL.Point(109.733204, 32.319597), 19);
         map.enableScrollWheelZoom(true);
         // 创建点标记
@@ -40,27 +41,32 @@ export default {
         var zoomCtrl = new BMapGL.ZoomControl();  // 添加缩放控件
         map.addControl(zoomCtrl);
 
-        var opts = {
-            position: new BMapGL.Point(109.733204, 32.319597), // 指定文本标注所在的地理位置
-            offset: new BMapGL.Size(30, -30) // 设置文本偏移量
-        };
-        let text = [
-          '竹溪县中医院',
-          `电话：${this.config.hotline}`,
-          '地址：十堰市竹溪县鄂陕大道476号'
-        ]
-        var label = new BMapGL.Label(text.join('<br/>'), opts);
-        // 自定义文本标注样式
-        label.setStyle({
-            color: '#666',
-            borderRadius: '5px',
-            borderColor: '#ccc',
-            padding: '5px',
-            fontSize: '14px',
-            lineHeight: '24px',
-            fontFamily: '微软雅黑'
-        });
-        map.addOverlay(label);
+        let timer = setInterval(() => {
+          if(this.config.hotline){
+            let text = [
+              '竹溪县中医院',
+              `电话：${this.config.hotline}`,
+              '地址：十堰市竹溪县鄂陕大道476号'
+            ]
+            var opts = {
+              position: new BMapGL.Point(109.733204, 32.319597), // 指定文本标注所在的地理位置
+              offset: new BMapGL.Size(30, -30) // 设置文本偏移量
+            };
+            var label = new BMapGL.Label(text.join('<br/>'), opts);
+            // 自定义文本标注样式
+            label.setStyle({
+                color: '#666',
+                borderRadius: '5px',
+                borderColor: '#ccc',
+                padding: '5px',
+                fontSize: '14px',
+                lineHeight: '24px',
+                fontFamily: '微软雅黑'
+            });
+            map.addOverlay(label);
+            clearInterval(timer)
+          }
+        }, 300);
         return map;
     },
   },
