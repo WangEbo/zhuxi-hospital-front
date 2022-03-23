@@ -8,6 +8,7 @@
 import { getLocation } from "@/utils/common";
 let curLocation = {};
 export default {
+  name: 'ZxMap',
   data(){
     return {
 

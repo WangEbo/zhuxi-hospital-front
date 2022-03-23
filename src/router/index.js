@@ -20,6 +20,8 @@ import DoctorList from '@/components/DoctorList.vue'
 import DoctorDetail from '@/components/DoctorDetail.vue'
 
 import DepartmentList from '@/components/DepartmentList.vue'
+
+import ZxMap from "@/components/ZxMap/index.vue"
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
  * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -95,7 +97,7 @@ const getCustomerComponent = (menu)=> {
     case '院长信箱':
       return () => import("@/views/email")
     case '地理位置':
-      return () => import("@/components/Map/index.vue")
+      return ZxMap
   }
 }
 
