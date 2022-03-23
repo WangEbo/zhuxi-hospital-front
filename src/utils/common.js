@@ -75,3 +75,8 @@ export const getUrlQuery = () => {
     }
   }
 };
+
+export function getWindowWidth() { 
+  var de = document.documentElement; 
+  return self.innerWidth||( de && de.offsetWidth )||document.body.offsetWidth; 
+}

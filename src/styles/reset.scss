@@ -318,6 +318,48 @@ body{
       }
     }
   }
-  
-  
 }
+
+@media screen and(max-width: 600px) {
+  .el-tabs{
+    .el-tabs__header{
+      margin-bottom: 0;
+    }
+    .el-tabs__nav-wrap::after{
+        background-color: $tabMainColor;
+    }
+    .el-tabs__active-bar{
+      display: none;
+    }
+    .el-tabs__nav-scroll{
+      .el-tabs__nav {
+        .el-tabs__item{
+          color: $tabMainColor;
+          font-size: 14px;
+          line-height: 20px;
+          padding: 6px 10px;
+          letter-spacing: 4px;
+          height: auto;
+          position: relative;
+          &.is-active{
+            color: #fff;
+            background-color: $tabMainColor;
+            border-radius: 6px 6px 0 0;
+            @include bottomArrow;
+            &::after{
+              border-width: 6px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .y-tab{
+    .more{
+      line-height: 32px;
+      font-size: 14px;
+    }
+  }
+}
+

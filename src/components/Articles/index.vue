@@ -70,17 +70,36 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .content-wrap{
   display: flex;
+}
+.article{
+  flex: 1;
+  margin-right: 40px;
+}
+/deep/ .content{
+  font-size: 12px;
   img{
     display: block;
     width: 100%;
   }
 }
-.article{
-  flex: 1;
-  margin-right: 40px;
+@media screen and(max-width: 600px){
+  .article{
+    flex: none;
+    width: 100%;
+    margin: 15px 0;
+    /deep/ .content{
+       p{
+        line-height: 24px!important;
+      }
+      span{
+        line-height: 24px!important;
+        font-size: 14px!important;
+      }
+    }
+  }
 }
 </style>
 

@@ -4,8 +4,7 @@
       <el-col :span="9">
         <div class="banner">
           <YSwiper :list="news.data" :config="{}">
-            <div v-for="(item, i) in news.data.slice(0,5)" :key="i" class="swiper-slide">
-              <img :src="item.contentImg" alt="">
+            <div :style="{'background-image': `url('${imgUrlEncode(item.contentImg)}')`}" class="swiper-slide" v-for="(item, i) in news.data.slice(0,5)" :key="i">
               <p class="slide-des">{{item.des}}</p>
             </div>
           </YSwiper>
@@ -153,7 +152,7 @@
           <div class="more"><router-link :to="`${overview.categoryPath}`">详情>></router-link></div>
           <el-tabs :value="'overview'">
             <el-tab-pane :label="overview.title" name="overview">
-              <SliceCard :max="400" :to="overview.categoryPath" :text="overview.data.contentDescription"></SliceCard>
+              <SliceCard :max="sliceCardMax" :to="overview.categoryPath" :text="overview.data.contentDescription"></SliceCard>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -247,12 +246,12 @@
  
 </template>
 <script>
-
 import YSwiper from "@/components/YSwiper";
-import { imgUrlEncode, findNodeById } from "@/utils/common";
+import { imgUrlEncode, findNodeById, getWindowWidth } from "@/utils/common";
 import { getArticlesList, getArticleById } from "@/api/content";
 import { mapGetters } from 'vuex'
 
+const deviceWidth = getWindowWidth()
 const articelItem = {
   coverImg: "",
   contentDescription: "",
@@ -282,6 +281,13 @@ export default {
     activeTabItem2(){
       return this[this.activeTab2]
     },
+    sliceCardMax(){
+      if(deviceWidth>= 1366){
+        return 400
+      }else{
+        return 240
+      }
+    }
   },
   data() {
     let self = this;
@@ -520,11 +526,7 @@ $verticelMargin: 32px;
     height: 100%;
     .swiper-slide{
       height: 100%;
-      img{
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
+      @include adptiveBg;
     }
   }
  
@@ -673,6 +675,212 @@ $verticelMargin: 32px;
      font-size: 16px;
    }
  }
+}
+
+
+@media screen and (max-width: 600px){
+  $verticelMargin: 15px;
+  $panePadding: 10px 15px;
+  #index-page{
+    margin-top: 20px;
+    .el-row{
+      margin-top: 0;
+      .el-col{
+        margin-top: $verticelMargin;
+        width: 100%;
+        float: none;
+        display: block;
+        height: auto;
+        margin-left: 0;
+      }
+    }
+
+    .el-tab-pane{
+      background-color: #fff;
+      padding: $panePadding;
+      border: 1px solid #ccc;
+    }
+
+
+    .list{
+      .des, .time{
+        font-size: 12px;
+        color: #4e4e4e;
+      }
+    }
+
+    .div-bg{
+      height: 40px;
+      margin: $verticelMargin 0 0 0;
+      @include adptiveBg;
+      background-size: 130% 70%;
+      &.bg1{
+        background-image: url('../assets/imgs/div-1.jpg');
+      }
+      &.bg2{
+        background-image: url('../assets/imgs/div-2.jpg');
+      }
+    }
+    .row1{
+      .el-col{
+        margin-top: $verticelMargin;
+      }
+
+      .swiper-wrapper {
+        height: 100%;
+        .swiper-slide{
+          height: 100%;
+          img{
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+  
+    
+      .banner{
+        height: 100%;
+        .swiper-container{
+          height: 100%;
+        }
+      }
+
+      .el-tab-pane{
+        height: auto;
+      }
+
+      .com-panel-1{
+        span.iconfont{
+          color: #676767;
+          font-weight: 600;
+        }
+        .top-news{
+          
+          a.detail{
+            width: 70px;
+            margin-top: -26px;
+            span:nth-child(2){
+              color: #e74142;
+            }
+          }
+          h4.title, .content{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 12px;
+            margin: 0 5px;
+            text-indent: 8px;
+          }
+          .content{
+            margin-top: 0;
+            line-height: 26px;
+          }
+          
+        }
+      }
+    }
+
+    .row2{ 
+      .el-tab-pane{
+        height: auto;
+        padding: $panePadding;
+      }
+    }
+    
+    .row4{
+      margin: $verticelMargin auto;
+      .el-tab-pane{
+        background-color: transparent;
+        padding: $panePadding;
+        border: 0;
+        li{
+          display: inline-block;
+          margin-right: 12px;
+          color: $mainTheme;
+        }
+        a{
+          font-size: 14px;
+        }
+      }
+    }
+    
+    .equipment-list{
+      li{
+        display: inline-block;
+      }
+    }
+    .equipment-item{
+      width: 90px;
+      margin: 0 10px 10px 0;
+      img{
+        display: block;
+        width: 100%;
+        height: 80px;
+        border-radius: 6px;
+      }
+      p{
+        font-size: 12px;
+        font-weight: 600;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .doctor-list{
+      li{
+        display: inline-block;
+      }
+    }
+    .doctor-item{
+      width: 60px;
+      margin: 0 10px 10px 0;
+      img{
+        display: block;
+        width: 100%;
+        height: 80px;
+        border-radius: 6px;
+      }
+      p{
+        font-size: 12px;
+        font-weight: 600;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  
+  .row3{
+    margin-top: $verticelMargin;
+    .el-tab-pane{
+      height: 250px;
+      &.doctor{
+        li{
+          p{
+            color: $mainTheme;
+          }
+        }
+      }
+    }
+  }
+
+  .overview-pane{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    .more, .more a{
+        line-height: 32px;
+        font-size: 14px;
+      }
+    }
+
+    .el-tabs__content{
+      a{
+        font-size: 12px;
+      }
+    }
+  }
 }
 </style>
 

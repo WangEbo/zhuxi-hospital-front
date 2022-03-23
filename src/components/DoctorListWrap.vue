@@ -184,4 +184,23 @@ export default {
     }
 }
 
+
+@media screen and(max-width: 600px){
+  .docrot-content{
+    display: block;
+
+    .breadcrumb{
+      margin-bottom: 20px;
+    }
+    
+    .left-part{
+      flex: none;
+      margin-right: 0;
+    }
+
+    .right-part{
+      display: none;
+    }
+  } 
+}
 </style>

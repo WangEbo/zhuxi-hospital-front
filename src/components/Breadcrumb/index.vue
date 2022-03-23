@@ -66,4 +66,32 @@ export default {
       vertical-align: middle;
     }
   }
+
+  @media screen and(max-width: 600px){
+    .app-breadcrumb.el-breadcrumb {
+      vertical-align: middle;
+      display: inline-block;
+      font-size: 12px;
+      line-height: 30px;
+      margin-left: 5px;
+      color: #000;
+      .no-redirect {
+        color: #000;
+      }
+    }
+    .breadcrumb{
+      line-height: 30px;
+      border-bottom: 2px solid $mainTheme;
+      margin-bottom: 30px;
+      font-size: 12px;
+      >span{
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    /deep/ .el-breadcrumb__separator{
+      margin: 0 4px;
+    }
+  }
 </style>

@@ -9,8 +9,8 @@
 </template>
 <script>
 
-import YHeader from "@/components/YHeader";
-import YFooter from "@/components/YFooter";
+import YHeader from "@/components/YHeader/index.vue";
+import YFooter from "@/components/YFooter/index.vue";
 
 import { imgUrlEncode } from "@/utils/common";
 

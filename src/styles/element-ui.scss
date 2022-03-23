@@ -43,3 +43,15 @@
 .el-pagination.is-background .el-pager li:not(.disabled):hover{
   color: $mainTheme;
 }
+
+@media screen and(max-width: 600px){
+  .el-pagination{
+    .el-pagination__sizes{
+      display: none!important;
+    }
+    .el-pager{
+      max-width: 25%;
+      overflow: hidden;
+    }
+  }
+}

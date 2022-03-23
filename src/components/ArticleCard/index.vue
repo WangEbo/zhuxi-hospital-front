@@ -56,14 +56,11 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .content-wrap{
   display: flex;
-  img{
-    display: block;
-    width: 100%;
-  }
 }
+
 .article{
   flex: 1;
   margin-right: 40px;
@@ -89,8 +86,52 @@ export default {
       margin: 0 8px;
     }
   }
-  .content{
+  /deep/ .content{
     font-size: 14px;
+    img{
+      display: block;
+      width: 100%;
+    }
+  }
+   
+}
+
+@media screen and(max-width: 600px){
+  .article{
+    flex: none;
+    width: 100%;
+    margin: 15px 0;
+    .title{
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 40px;
+      text-align: center;
+    }
+    .divide-line{
+      width: 100%;
+      height: 1px;
+      background-image: linear-gradient(to right, #666 0%, #ccc 50%, transparent 50%);
+      background-size: 8px 1px;
+      background-repeat: repeat-x;
+    }
+    .row2{
+      text-align: center;
+      font-size: 14px;
+      color: $lightTextColor;
+      margin: 15px;
+      span{
+        margin: 0 8px;
+      }
+    }
+    /deep/ .content{
+      p{
+        line-height: 24px!important;
+      }
+      span{
+        line-height: 24px!important;
+        font-size: 14px!important;
+      }
+    }
   }
 }
 </style>

@@ -261,4 +261,9 @@ export default {
 .child-menu li, .news li,.notices li{
   cursor: pointer;
 }
+@media screen and(max-width: 600px){
+  .recommend{
+    display: none;
+  }
+}
 </style>

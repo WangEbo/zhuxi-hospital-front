@@ -74,6 +74,17 @@ ul.list{
   }
 }
 
+@media screen and(max-width: 600px) {
+  .page-inner{
+    width: 90%;
+  }
+  .route-wrap{
+    width: 100%;
+    padding: 10px 20px;
+    margin: 20px 0;
+  }
+}
+
 
 //多行裁剪文本样式
 .ellipsis {

@@ -232,9 +232,6 @@ export default {
     color: #fff;
     background-color: $mainTheme;
   }
-  .route-wrap{
-    
-  }
 
   .level-msg-wrap{
     display: flex;

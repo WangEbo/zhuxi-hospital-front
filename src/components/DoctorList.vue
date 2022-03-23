@@ -6,7 +6,7 @@
             <div class="doctor-card">
               <div class="doctor-img"><img :src="doctor.contentImg" alt=""></div>
               <div class="doctor-des"><strong>{{doctor.contentTitle}}，</strong>
-                <SliceCard :to="`${curMenu.categoryPath}/detail/${doctor.id}`" :text="doctor.contentDescription"></SliceCard>
+                <SliceCard :max="sliceCardMax" :to="`${curMenu.categoryPath}/detail/${doctor.id}`" :text="doctor.contentDescription"></SliceCard>
               </div>
             </div>
           </li>
@@ -23,7 +23,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getArticlesList } from "@/api/content";
+import { getWindowWidth } from "@/utils/common";
 
+const deviceWidth = getWindowWidth()
 const defaultListQuery = {
   pageNum: 1,
   pageSize: 5,
@@ -49,6 +51,13 @@ export default {
   },
   computed:{
     ...mapGetters(['menus', 'curLevel1Menu', 'curMenu', 'menuPath']),
+    sliceCardMax(){
+      if(deviceWidth>= 1366){
+        return 300
+      }else{
+        return 100
+      }
+    }
   },
   watch:{
   },
@@ -82,10 +91,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .left-part{
-    flex: 1;
-    margin-right: 50px;
-  }
   .doctor-card{
     padding: 35px;
     font-size: 16px;
@@ -127,5 +132,34 @@ export default {
     }
   }
 
+@media screen and(max-width: 600px){
+  .doctor-card{
+    padding: 12px;
+    font-size: 12px;
+    background-image: url('../assets/imgs/doc-bd.png');
+    background-size: 100% 100%;
+    height: 180px;
+    &::before, &::after{
+      width: 40px;
+      height: 100px;
+    }
+    .doctor-img{
+      width: 100px;
+      height: 140px;
+      img{
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 9;
+      }
+    }
+    .doctor-des{
+      margin-left: 10px;
+      flex: 1;
+      font-size: 12px;
+    }
+  }
 
+}
 </style>

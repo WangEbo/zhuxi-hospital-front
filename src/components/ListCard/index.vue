@@ -126,5 +126,28 @@ export default {
       font-size: 14px;
     }
   }
+
+  @media screen and(max-width: 600px){
+    .list-card{
+      border-bottom: 1px dashed $greyBd;
+      margin-bottom: 12px;
+      cursor: pointer;
+      .intro{
+        font-size: 14px;
+        line-height: 26px;
+        font-weight: 600;
+        color: #333;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+      .time{
+        margin-top: 4px;
+        color: rgb(200, 200, 200);
+        font-size: 14px;
+      }
+    }
+  }
 </style>
 
