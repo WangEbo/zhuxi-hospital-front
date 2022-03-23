@@ -165,7 +165,7 @@
             <el-tab-pane class="doctor" :label="doctor.title" name="doctor">
               <ul class="list doctor-list">
                 <li v-for="(item, i) in doctor.data.slice(0, 10)" :key="i">
-                  <router-link class="fs16 h" :to="`doctor?id=${item.id}`">
+                  <router-link class="fs16 h" :to="getDoctorPath(item)">
                     <div class="doctor-item" >
                       <img :src="item.contentImg" alt="">
                       <p>{{item.contentTitle}}</p>
@@ -487,6 +487,10 @@ export default {
     },
     tabChange2(tabItem){
       this.activeTab2 = tabItem.name
+    },
+    getDoctorPath(doctor){
+      let lastIndex = doctor.categoryPath.lastIndexOf('/')
+      return doctor.categoryPath.substr(0,lastIndex) + '/detail/' + doctor.id
     }
   },
 };
@@ -654,6 +658,13 @@ $verticelMargin: 32px;
  .row3{
    .el-tab-pane{
      height: 440px;
+     &.doctor{
+       li{
+         p{
+           color: $mainTheme;
+         }
+       }
+     }
    }
  }
 

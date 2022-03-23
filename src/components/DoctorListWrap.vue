@@ -75,19 +75,14 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .docrot-content{
   display: flex;
 
   .breadcrumb{
     margin-bottom: 40px;
   }
-  .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background-color: $mainTheme;
-  }
-  .el-pagination.is-background .el-pager li:not(.disabled):hover{
-    color: $mainTheme;
-  }
+  
   
   .left-part{
     flex: 1;
@@ -136,21 +131,24 @@ export default {
 
   .right-part{
     width: 320px;
-    .el-collapse{
-      border: 0;
+    /deep/{
+      .el-collapse{
+        border: 0;
+      }
+      .el-collapse-item{
+        margin-bottom: 15px;
+      }
+      .el-collapse-item__header{
+        border: 0;
+      }
+      .el-collapse-item__arrow.el-icon-arrow-right{
+        display: none;
+      }
+      .el-collapse-item__wrap{
+        border: 0;
+      }
     }
-    .el-collapse-item{
-      margin-bottom: 15px;
-    }
-    .el-collapse-item__header{
-      border: 0;
-    }
-    .el-collapse-item__arrow.el-icon-arrow-right{
-      display: none;
-    }
-    .el-collapse-item__wrap{
-      border: 0;
-    }
+    
     ul{
       li{
         font-size: 16px;
@@ -162,9 +160,6 @@ export default {
     }
   }
 
-
-  // .dep-item{
-  //    position: relative;
     .r-title{
       width: 100%;
       position: relative;
@@ -187,8 +182,6 @@ export default {
         width: 100%;
       }
     }
-    
-  // }
 }
 
 </style>

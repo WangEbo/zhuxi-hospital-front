@@ -57,7 +57,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .doctor-detail{
   margin: 0 20px;
   padding: 20px;

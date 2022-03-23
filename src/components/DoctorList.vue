@@ -81,14 +81,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
-  .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background-color: $mainTheme;
-  }
-  .el-pagination.is-background .el-pager li:not(.disabled):hover{
-    color: $mainTheme;
-  }
-  
+<style lang="scss" scoped>
   .left-part{
     flex: 1;
     margin-right: 50px;

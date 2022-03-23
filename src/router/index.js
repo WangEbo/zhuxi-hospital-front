@@ -10,7 +10,6 @@ import Layout from "@/views/Layout";
 /* List */
 import List from '@/components/List/index.vue'
 import ListCard from '@/components/ListCard/index.vue'
-import TestCard from '@/components/TestCard.vue'
 /* Articles */
 import Articles from '@/components/Articles/index.vue'
 /* list item detail */
@@ -76,6 +75,9 @@ const getTypeRoute = (route, parentWrap)=> {
       
       break
     case '3':
+      if(route.categoryTitle == '地理位置'){
+        route.component = List;
+      }
       route.children = [
         {
           path: '/',
@@ -93,7 +95,7 @@ const getCustomerComponent = (menu)=> {
     case '院长信箱':
       return () => import("@/views/email")
     case '地理位置':
-      return () => import("@/views/overview/location")
+      return () => import("@/components/Map/index.vue")
   }
 }
 

@@ -49,7 +49,7 @@
 
 <script>
 import { imgUrlEncode } from "@/utils/common";
-
+import { getUrlQuery } from "@/utils/common";
 import YSwiper from "@/components/YSwiper";
 import { mapGetters } from 'vuex'
 
@@ -105,6 +105,11 @@ export default {
     search(e){
       console.log("搜索", this.keywords);
       let k = this.keywords.trim();
+      let query = getUrlQuery();
+      let keyword = decodeURIComponent(query.k);
+      if(k == keyword){
+        return
+      }
       if(!k){
         return;
       }

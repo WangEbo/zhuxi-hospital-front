@@ -75,7 +75,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .list-card{
     border-bottom: 1px dashed $greyBd;
     margin-bottom: 12px;

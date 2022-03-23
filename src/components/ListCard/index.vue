@@ -18,8 +18,6 @@ import { mapGetters } from 'vuex'
 import { getArticlesList } from "@/api/content";
 import { getUrlQuery } from "@/utils/common";
 
-let query = getUrlQuery();
-let keyword = decodeURIComponent(query.k);
 
 const defaultListQuery = {
   pageNum: 1,
@@ -37,6 +35,13 @@ export default {
   },
   components: {
     
+  },
+  watch: {
+    '$route.query': {
+      handler(nval){
+        this.getList()
+      }
+    }
   },
   created() {
     this.getList();
@@ -63,6 +68,9 @@ export default {
   methods: {
     getList(){
       let params;
+
+      let query = getUrlQuery();
+      let keyword = decodeURIComponent(query.k);
       if(this.curMenu && this.curMenu.id){
         params = Object.assign({}, this.listQuery, {categoryId: this.curMenu.id})
       }else if(keyword){
@@ -83,8 +91,14 @@ export default {
       this.getList();
     },
     toDetail(item){
-      let path = item.categoryPath
-      this.$router.push(path + '/detail/' + item.id)
+      let path = item.categoryPath;
+      if(path.startsWith('/mingyizhuanjia') || path.startsWith('/tesezhuanke')){
+        let lastIndex = path.lastIndexOf('/')
+        path = path.substr(0, lastIndex) + '/detail/' + item.id
+      }else{
+        path = path + '/detail/' + item.id
+      }
+      this.$router.push(path)
     },
   },
 };

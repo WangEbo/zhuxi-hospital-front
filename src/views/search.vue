@@ -27,7 +27,6 @@ export default {
   watch:{
   },
   mounted() {
-    debugger
     this.keyword =  this.$route.query.k
   },
   methods: {
