@@ -141,6 +141,8 @@ export default {
 </script>
 
 <style lang="scss">
+  $inputHeight: 30px;
+
 .el-submenu__title{
   a{
     line-height: 30px;
@@ -337,7 +339,6 @@ export default {
             text-align: left;
             margin-bottom: $moduleMargin;
           }
-          $inputHeight: 30px;
           .el-input-group{
             width: 100%;
             font-size: 12px;
@@ -346,8 +347,8 @@ export default {
               height: $inputHeight;
               border: 0;
               button{
-                line-height: calc($inputHeight - 2px);
-                height: calc($inputHeight - 2px);
+                line-height: 28px;
+                height: 28px;
                 padding: 0 5px;
                 margin: 0;
               }
