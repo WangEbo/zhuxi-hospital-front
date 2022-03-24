@@ -612,12 +612,16 @@ $verticelMargin: 32px;
   }
   
   .equipment-list{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     li{
+      width: 250px;
       display: inline-block;
     }
   }
   .equipment-item{
-    width: 240px;
+    width: 250px;
     margin: 0 20px 20px 0;
     img{
       display: block;
@@ -635,13 +639,21 @@ $verticelMargin: 32px;
   }
 
   .doctor-list{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     li{
       display: inline-block;
+      width: 140px;
+      text-align: center;
+      a{
+        display: inline-block;
+      }
     }
   }
   .doctor-item{
     width: 138px;
-    margin: 0 20px 20px 0;
+    margin-bottom: 15px;
     img{
       display: block;
       width: 100%;
@@ -806,13 +818,17 @@ $verticelMargin: 32px;
     }
     
     .equipment-list{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
       li{
+        width: 80px;
         display: inline-block;
       }
     }
     .equipment-item{
-      width: 90px;
-      margin: 0 10px 10px 0;
+      width: 80px;
+      margin-bottom: 10px;
       img{
         display: block;
         width: 100%;
@@ -830,7 +846,7 @@ $verticelMargin: 32px;
 
     .doctor-list{
       li{
-        display: inline-block;
+        width: 60px;
       }
     }
     .doctor-item{
