@@ -6,11 +6,20 @@
         <ul>
           <li class="message-item" v-for="(item, i) in list" :key="i">
             <el-card>
-              <div class="row1">
-                <p class="name"><strong>发布者：</strong>{{item.name}}</p>
-                <p class="time">{{item.createTime}}</p>
+              <div class="msg-wrap">
+                <div class="row1">
+                  <p class="name"><strong>发布者：</strong>{{item.name}}</p>
+                  <p class="time">{{item.createTime}}</p>
+                </div>
+                <div class="content">{{item.content}}</div>
               </div>
-              <div class="content">{{item.content}}</div>
+              <div class="msg-wrap">
+                <div class="row1">
+                  <p class="name"><strong>院长回复：</strong></p>
+                  <p class="time">{{item.replyTime}}</p>
+                </div>
+                <div class="content">{{item.reply}}</div>
+              </div>
             </el-card>
           </li>
         </ul>
@@ -30,8 +39,8 @@
                   <el-radio-group v-model="detail.sex"
                   :style="{width: ''}">
                     <el-radio :style="{display: true ? 'inline-block' : 'block'}" :label="item.value"
-                              v-for='(item, index) in sexOpts' :key="item.value + index">
-                        {{true? item.label : item.value}}
+                              v-for='(item, index) in sexOpts' :key="item.value">
+                        {{item.label}}
                     </el-radio>
                   </el-radio-group>
                 </el-form-item>
@@ -61,17 +70,23 @@
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-form-item label="主题" prop="subject">
-              <el-input v-model="detail.subject" placeholder="主题"></el-input>
-            </el-form-item>
-            <el-form-item label="留言内容：" prop="content">
-              <el-input type="textarea" class="input-content"  :autosize="{ minRows: 6, maxRows: 6}" v-model="detail.content" style="width: 100%;"></el-input>
-            </el-form-item>
-            <el-form-item label="验证码：" prop="vccCode" :class="[]" ref="vccFormItem">
-              <el-input v-model="detail.vccCode" :clearable="true" style="width: 150px" placeholder="请输入验证码"></el-input>
-              <el-button @click="getVccImg" :disabled="vcc.hasGetVccImg">获取验证码{{ vcc.src ? ' ' + vcc.expire / 1000 : '' }}</el-button>
-              <img style="cursor: pointer;" @click="resetVccImg" v-show="vcc.src" :src="vcc.src" alt />
-            </el-form-item>
+            <div class="el-row">
+              <el-form-item label="主题" prop="subject">
+                <el-input v-model="detail.subject" placeholder="主题"></el-input>
+              </el-form-item>
+            </div>
+            <div class="el-row">
+              <el-form-item label="留言内容：" prop="content">
+                <el-input type="textarea" class="input-content"  :autosize="{ minRows: 6, maxRows: 6}" v-model="detail.content" style="width: 100%;"></el-input>
+              </el-form-item>
+            </div>
+            <div class="el-row vcc-code">
+              <el-form-item label="验证码：" prop="vccCode" :class="[]" ref="vccFormItem">
+                <el-input v-model="detail.vccCode" :clearable="true" style="width: 150px" placeholder="请输入验证码"></el-input>
+                <el-button @click="getVccImg" :disabled="vcc.hasGetVccImg">获取验证码{{ vcc.src ? ' ' + vcc.expire / 1000 : '' }}</el-button>
+                <img style="cursor: pointer;" @click="resetVccImg" v-show="vcc.src" :src="vcc.src" alt />
+              </el-form-item>
+            </div>
             <div class="email-form-footer">
               <el-button @click="cancel" size="small">取 消</el-button>
               <el-button class="submit-btn" @click="submit" :loading="loading" size="small">提 交</el-button>
@@ -137,6 +152,8 @@ export default {
           name: '',
           createTime: '',
           content: '',
+          reply: '',
+          replyTime: ''
         }
       ],
       sexOpts: [
@@ -162,7 +179,7 @@ export default {
           // { validator:checkVccCode }
         ],
         content: [
-          {min: 0, max: 1000, message: '长度小于1000 个字符', trigger: 'change'}
+          {min: 0, max: 300, message: '长度小于300 个字符', trigger: 'change'}
         ]
       },
     }
@@ -264,7 +281,7 @@ export default {
       }
     }
     .content{
-      color: #b3b3b3;
+      color: #8b8b8b;
     }
   }
 
@@ -324,6 +341,61 @@ export default {
 }
 .email-form-footer{
   text-align: center;
+}
+
+@media screen and(max-width: 600px){
+  .email{
+    .route-wrap{
+      .message-list>h4, .level-msg-wrap h4{
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+      }
+
+      .message-item{
+
+        .row1{
+          display: block;
+          .time{
+            font-size: 10px;
+          }
+        }
+        .msg-wrap + .msg-wrap{
+          margin-top: 5px;
+        }
+      }
+      .level-msg-wrap{
+        display: block;
+        .left-part{
+          width: 100%;
+          .el-row{
+            .el-col, .el-form-item{
+              margin-left: 0;
+              width: 100%;
+              .el-form-item__label{
+                width: 80px!important;
+              }
+              .el-form-item__content{
+                margin-left: 80px!important;
+              }
+            }
+          }
+          .vcc-code{
+            .el-input{
+              width: calc(100% - 115px)!important;
+            }
+            img{
+              margin-top: 8px;
+            }
+          }
+        }
+        .right-part{
+          display: none;
+        }
+      }
+    }
+    
+  }
 }
 </style>
 

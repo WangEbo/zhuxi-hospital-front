@@ -84,6 +84,10 @@ export default {
     display: block;
     width: 100%;
   }
+  video{
+    width: 100%;
+    height: auto!important;
+  }
 }
 @media screen and(max-width: 600px){
   .article{

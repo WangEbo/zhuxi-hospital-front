@@ -43,6 +43,26 @@
         </YSwiper>
       </div>
     </div>
+    <div id="app-menu" @click="appOn = true" class="app">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-app app" :class="{on: appOn}">
+      <div class="mask" @click="appOn = false"></div>
+      <div class="child">
+        <ul>
+          <li v-if="item.categoryTitle" @click="showChild(item)" :class="{active: routeActive(item), current: routeActive(item)}" class="go-child"  v-for="(item,i) in menus" :key="i">
+            <div>
+              <a :href="'#' + item.categoryPath || 'javascript: viod(0)'">{{item.meta.title}}</a><i  v-show="item.childs && item.childs.length" class="icon iconfont icon-arrow-right"></i>
+            </div>
+            <ol v-show="item.childs && item.childs.length" class="nav-down" :style="{height: item.active ? getShowChildsLength(item) * 38 +'px' : '0'}">
+              <li :class="{active: routeActive(child)}" v-if="child.categoryTitle" v-for="(child, cIndex) in item.childs" :key="cIndex"><a :href="'#' + child.categoryPath || 'javascript: void(0)'" :target="child.target || '_self'">{{child.meta.title}}</a></li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+    </div>
   </header>
 
 </template>
@@ -64,11 +84,13 @@ export default {
     ...mapGetters(['menus', 'config', 'curMenu', 'curLevel1Menu',]),
     curPage(){
       return this.curLevel1Menu || {}
-    }
+    },
+    
   },
   data(){
     return{
       activeIndex: "1",
+      appOn: false,
       // menus: [
       //   {
       //     categoryTitle: "首页",
@@ -102,6 +124,21 @@ export default {
   },
   methods: {
     imgUrlEncode,
+    routeActive(item){
+      return this.$route.path.includes(item.path)
+    },
+    getShowChildsLength(item){
+      return item.childs.filter(item=> item.categoryTitle).length
+    },
+    showChild(curItem){
+      try{
+        this.menus.forEach(item=> {
+          this.$set(item, "active", item == curItem ? !curItem.active : false);
+        });
+      }catch (err){
+        console.log(err);
+      }
+    },
     search(e){
       console.log("搜索", this.keywords);
       let k = this.keywords.trim();
@@ -124,6 +161,7 @@ export default {
       let index1 = this.menus.indexOf(this.curLevel1Menu) + 1
       this.activeIndex = index1+'';
       console.log(this.activeIndex);
+      this.$set(this.curLevel1Menu, 'active', true)
     },
     goTarget(menu){
       this.$router.push(menu.categoryPath)
@@ -263,6 +301,167 @@ export default {
   }
 }
 
+#app-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 20px;/*no*/
+    position: absolute;
+    top: 24px;/*no*/
+    bottom: 0;
+    right: 24px;/*no*/
+    z-index: 13;
+    display: none;
+    span {
+      background-color: $mainTheme;
+      height: 2px;/*no*/
+      border-radius: 50px;/*no*/
+      transition: all 0.3s ease-in-out;
+      transition: all 1s ease-in-out;
+      &:nth-of-type(1) {
+        width: 25px;/*no*/
+      }
+      &:nth-of-type(2) {
+        width: 25px;/*no*/
+      }
+      &:nth-of-type(3) {
+        width: 25px;/*no*/
+      }
+    }
+    &.on {
+      span {
+        transition: all 0.6s ease-in-out;
+        &:nth-of-type(1) {
+          width: 27px;
+          transform-origin: 100% 50%;
+        }
+        &:nth-of-type(2) {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        &:nth-of-type(3) {
+          width: 27px;
+          transform-origin: 100% 50%;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+
+.nav-app {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10000;
+    width: 0;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+    .mask {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+    .child {
+      position: absolute;
+      height: 100%;
+      width: 60%;
+      transition: all 0.3s ease-in-out;
+      transform: translateX(100%);
+      background-color: #fff;
+      top: 0;
+      right: 0;
+      z-index: 5;
+      color: $textColor;
+      overflow-y: scroll;
+      a, i{
+        color: $textColor;
+      }
+      ul {
+        padding-top: 36px;
+        li {
+          position: relative;
+          i {
+            height: 44px; /*no*/
+            line-height: 44px; /*no*/
+            position: absolute;
+            right: 24px; /*no*/
+            top: 0;
+            font-size: 12px; /*no*/
+            width: 44px; /*no*/
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+          }
+          a {
+            box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+            text-shadow: none;
+            display: inline-block;
+            width: 100%;
+            height: 44px; /*no*/
+            line-height: 44px; /*no*/
+            font-weight: bold;
+            font-size: 18px; /*no*/
+            padding: 0 24px; /*no*/
+          }
+
+          ol {
+            overflow: hidden;
+            background-color: $mainTheme;
+            transition: all .3s ease-in;
+            background: inherit;
+            li {
+              a {
+                width: 100%;
+                display: inline-block;
+                height: 38px; /*no*/
+                line-height: 38px; /*no*/
+                padding: 0 24px; /*no*/
+                text-indent: 10px; /*no*/
+                opacity: 0.9;
+                font-size: 14px;/*no*/
+                // font-weight: normal;
+              }
+              &.active{
+                a{
+                  color: $mainTheme;
+                }
+              }
+            }
+          }
+          &.current{
+            >div>a {
+              color: $mainTheme !important;
+              &:after {
+                opacity: 1;
+              }
+            }
+          }
+          &.active {
+            i {
+              transform: rotate(90deg);
+            }
+          }
+          
+        }
+        
+      }
+    }
+    &.on {
+      width: 100%;
+      opacity: 1;
+      pointer-events: auto;
+      .child {
+        transform: translateX(0);
+      }
+    }
+  }
+
 
 @media screen and(max-width: 1366px) {
   .y-header{
@@ -322,7 +521,7 @@ export default {
           display: block;
         }
         .logo{
-          width: 100%;
+          width: calc(100% - 50px);
           img{
             cursor: pointer;
             display: block;
@@ -367,6 +566,7 @@ export default {
 
     .row2{
       .nav{
+        display: none;
         overflow-x: scroll;
         white-space: nowrap;
         .el-menu{
@@ -397,6 +597,12 @@ export default {
         }
       }
     }
+
+    #app-menu{
+      display: flex;
+    }
   }
 }
+
+
 </style>
