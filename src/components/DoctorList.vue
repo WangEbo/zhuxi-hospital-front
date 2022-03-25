@@ -6,7 +6,7 @@
             <div class="doctor-card">
               <div class="doctor-img"><img :src="doctor.contentImg" alt=""></div>
               <div class="doctor-des"><strong>{{doctor.contentTitle}}，</strong>
-                <SliceCard :max="sliceCardMax" :to="`${curMenu.categoryPath}/detail/${doctor.id}`" :text="doctor.contentDescription"></SliceCard>
+                <SliceCard :max="sliceCardMax" :to="`${getDoctorPath(doctor)}/detail/${doctor.id}`" :text="doctor.contentDescription"></SliceCard>
               </div>
             </div>
           </li>
@@ -45,6 +45,7 @@ export default {
           id: "",
           content: "副院长，主任医师，大学本科毕业，医学学士,第三批全国中医临床优秀人才，十堰市十大名中医、竹溪县十大名中医，十堰市中医学会、十堰市中西结合学会理事，十堰市医疗事故鉴定委员会、十堰市医院评审委员会专家库成员，国家法医司法鉴定人。从事中西结合临床工作20余年。中西医理论基本功扎实，临床技术精湛，在治疗内、儿、妇科常见病、部分疑难病方面积累了丰富的临床经验，在治疗呼吸道疾病、心脑血管病、胃病、肾病、不孕不育症、脱发等疾病尤为擅长。有多篇论文在国家、省级刊物上发表。",
           createTime: "",
+          categoryPath: '',
         }
       ]
     };
@@ -86,6 +87,10 @@ export default {
       this.listQuery.pageNum = val;
       this.getList();
     },
+    getDoctorPath(doctor){
+      let lastIndex = doctor.categoryPath.lastIndexOf('/');
+      return doctor.categoryPath.substr(0, lastIndex)
+    }
   }
 };
 </script>

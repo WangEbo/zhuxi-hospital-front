@@ -69,7 +69,9 @@ export default {
       this.getList();
     },
     toDetail(item){
-      this.$router.push(`${item.categoryPath}`)
+      let lastIndex = item.categoryPath.lastIndexOf('/');
+      let path = item.categoryPath.substr(0, lastIndex)
+      this.$router.push(path)
     },
   }
 };

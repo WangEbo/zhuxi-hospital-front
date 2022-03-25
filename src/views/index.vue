@@ -701,6 +701,27 @@ $verticelMargin: 32px;
    a{
      font-size: 16px;
    }
+   .el-tab-pane{
+     position: relative;
+      &::before, &::after{
+        position: absolute;
+        content: '';
+        width: 30%;
+        height: 50%;
+        background-image: url('../assets/imgs/sy.png');
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.6;
+        background-position: center center;
+      }
+      &::after{
+        left: unset;
+        right: 10px;
+        transform-origin: center center;
+        transform: translateY(-50%) rotateZ(180deg);
+      }
+   }
  }
 }
 
