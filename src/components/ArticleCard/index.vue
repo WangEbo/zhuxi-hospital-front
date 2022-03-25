@@ -40,16 +40,30 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['curLevel1Menu', 'curMenu']),
   },
   created() {
-    this.getDetail()
+    this.init()
   },
   mounted(){
     
   },
   methods: {
-    getDetail(){
-      getArticleById(this.$route.params.id).then(res=> {
+    async init(){
+      let id;
+      if(this.curMenu && this.curMenu.childs && this.curMenu.childs[0] && this.curMenu.childs[0].categoryTitle == '科室特色'){
+        id = this.curMenu.childs[0].id;
+        let { data } = await getArticlesList({categoryId: id})
+        if(data.total == 1){
+          this.getDetail(data.list[0].id)
+        }
+      }else{
+        id = this.$route.params.id
+        this.getDetail(id)
+      }
+    },
+    getDetail(id){
+      getArticleById(id).then(res=> {
         this.$set(this, 'detail', res.data)
       })
     }
@@ -90,7 +104,7 @@ export default {
     font-size: 14px;
     img{
       display: block;
-      width: 100%;
+      max-width: 100%;
     }
     video{
       width: 100%;

@@ -66,6 +66,7 @@ export default {
         // 如果需要前进后退按钮
         nextButton: ".swiper-button-next",
         prevButton: ".swiper-button-prev",
+        paginationClickable: false
       };
       let opts = Object.assign({}, defaultOptions, this.config);
       this.swiper = new Swiper(`.swiper-${this.id}`, opts);

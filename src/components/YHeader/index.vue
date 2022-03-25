@@ -192,9 +192,8 @@ export default {
     @include adptiveBg;
     background-image: url('../../assets/imgs/header-bg1.jpg');
     .row1-content{
-      width: 1680px;
       height: 180px;
-      margin: 0 auto;
+      margin: 0 120px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -202,7 +201,7 @@ export default {
         height: 120px;
       }
       .logo{
-        width: 1200px;
+        width: 71%;
         img{
           cursor: pointer;
           display: block;
@@ -467,13 +466,13 @@ export default {
   .y-header{
     .row1{
       .row1-content{
-        width: 1260px;
+        margin: 0 100px;
         height: 180px;
         .logo, .func-part{
           height: 120px;
         }
         .logo{
-          width: 800px;
+          width: 60%;
         }
         .func-part{
           width: 280px;
@@ -512,7 +511,9 @@ export default {
   .y-header{
     .row1{
       .row1-content{
+        overflow: hidden;
         width: 90%;
+        height: 160px;
         margin: 0 auto;
         display: block;
         .logo, .func-part{
@@ -592,7 +593,7 @@ export default {
         }
         .swiper-slide{
           width: 100%;
-          height: 300px;
+          height: 180px;
           @include adptiveBg;
         }
       }

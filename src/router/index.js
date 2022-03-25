@@ -118,10 +118,16 @@ const getDoctorRoute = (doctorRoute, parentMenu, childrenWrap, level, type)=> {
   if(!childs || !childs.length || doctorRoute._useFlag){
     return
   }
-  if(parentMenu && level < 4){
+  if(parentMenu && level < 2){
     parentMenu.redirect = parentMenu.childs[0].categoryPath
   }
-  
+  if(level == 2){// 名医专家/特色科室默认导航到二级菜单第一条
+    childrenWrap.push({
+      path: '/',
+      component: type === DOCTOR_MENU_TITLE ? DoctorList : DepartmentList
+    })
+  }
+
   for(let i =0; i<childs.length;i++){
 
     let childRoute = childs[i]
@@ -136,14 +142,15 @@ const getDoctorRoute = (doctorRoute, parentMenu, childrenWrap, level, type)=> {
       component: COMPONENTMAP[level+''],//获取对应层级路由组件
       children: [],
     }))
-    if(level == 3){
+    if(level == 3){// 名医专家4级详情路由路径处理
       if(childRoute.categoryPath && childRoute.categoryPath.includes('/null')){
         childRoute.categoryPath = childRoute.categoryPath.replace('/null', '/detail')
-      }else{
-        let lastSlashIndex = childRoute.categoryPath.lastIndexOf('/')
-        childRoute.categoryPath = childRoute.categoryPath.substr(0, lastSlashIndex) + '/detail'
+        childRoute.path = doctorRoute.categoryPath+'/detail/:id'
       }
-      childRoute.path = doctorRoute.categoryPath+'/detail/:id'
+    }
+    if(level === 2 && type === DEPARTMENT_MENU_TITLE){
+      childRoute.component = ArticleCard
+      continue
     }
     getDoctorRoute(childRoute, doctorRoute, childRoute.children, level+1, type)
   }

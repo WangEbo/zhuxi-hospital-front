@@ -9,8 +9,8 @@
         <el-collapse :accordion="false" :value="activeMenuPath">
           <el-collapse-item :name="parentItem.categoryPath" v-for="(parentItem, pi) in curLevel1Menu.childs" :key="pi">
             <template slot="title">
-              <div class="r-title">
-                <h4>{{parentItem.categoryTitle}}</h4>
+              <div class="r-title" :class="{active: $route.path.includes(parentItem.categoryPath)}">
+                <h4> <router-link :to="parentItem.categoryPath">{{parentItem.categoryTitle}}</router-link></h4>
                 <div class="bd-line"></div>
               </div>
             </template>
@@ -140,9 +140,21 @@ export default {
       }
       .el-collapse-item__header{
         border: 0;
+        align-items: center;
+        position: relative;
       }
       .el-collapse-item__arrow.el-icon-arrow-right{
-        display: none;
+        font-size: 28px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        z-index: 1;
+        transform: translateY(-50%);
+        transform-origin: center center;
+        margin-top: 2px;
+        &.is-active{
+          transform: translateY(-50%) rotate(90deg);
+        }
       }
       .el-collapse-item__wrap{
         border: 0;
@@ -150,6 +162,7 @@ export default {
     }
     
     ul{
+      margin-top: 12px;
       li{
         font-size: 16px;
         color: #666;
@@ -163,7 +176,11 @@ export default {
     .r-title{
       width: 100%;
       position: relative;
-      margin-bottom: 30px;
+      &.active{
+        h4{
+          color: $mainTheme;
+        }
+      }
       h4{
         font-size: 26px;
         font-weight: 500;

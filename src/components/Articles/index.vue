@@ -82,7 +82,7 @@ export default {
   font-size: 12px;
   img{
     display: block;
-    width: 100%;
+    max-width: 100%;
   }
   video{
     width: 100%;

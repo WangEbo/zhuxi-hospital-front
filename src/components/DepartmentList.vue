@@ -1,6 +1,6 @@
 <template>
     <div class="doctor-list">
-      <div v-if="menuPath.length<4">
+      <div v-if="menuPath.length<3">
         <ul  class="list">
           <li v-for="(item, i) in list" :key="i">
             <div class="list-card" @click="toDetail(item)">
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     getList(){
-      let id =  this.curMenu.childs && this.curMenu.childs[0] && this.curMenu.childs[0].id;
+      let id =  this.curMenu.id;
       if(!id){
         this.$set(this, 'list', [])
         return
@@ -69,7 +69,7 @@ export default {
       this.getList();
     },
     toDetail(item){
-      this.$router.push(`${this.curMenu.categoryPath}/detail/${item.id}`)
+      this.$router.push(`${item.categoryPath}`)
     },
   }
 };

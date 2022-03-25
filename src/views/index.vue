@@ -3,7 +3,7 @@
     <el-row class="row1 page-inner">
       <el-col :span="9">
         <div class="banner">
-          <YSwiper :list="news.data" :config="{}">
+          <YSwiper :list="news.data" :config="{paginationClickable: true,paginationBulletRender: paginationBulletRender}">
             <div :style="{'background-image': `url('${imgUrlEncode(item.contentImg)}')`}" class="swiper-slide" v-for="(item, i) in news.data.slice(0,5)" :key="i">
               <p class="slide-des">{{item.des}}</p>
             </div>
@@ -497,6 +497,9 @@ export default {
     getDoctorPath(doctor){
       let lastIndex = doctor.categoryPath.lastIndexOf('/')
       return doctor.categoryPath.substr(0,lastIndex) + '/detail/' + doctor.id
+    },
+    paginationBulletRender(swiper, index, className) {
+      return '<span class="' + className + '">' + (index + 1) + '</span>';
     }
   },
 };
@@ -550,6 +553,18 @@ $verticelMargin: 32px;
       height: 100%;
       .swiper-container{
         height: 100%;
+      }
+      .swiper-pagination-bullet{
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        color: #fff;
+        background-color: rgba(0,0,0,0.4);
+        opacity: 0.8;
+        &.swiper-pagination-bullet-active{
+          background-color: $mainTheme;
+          opacity: 1;
+        }
       }
     }
 
@@ -734,6 +749,9 @@ $verticelMargin: 32px;
       }
     }
     .row1{
+      .el-col:nth-child(1){
+        margin-top: 0;
+      }
       .el-col{
         margin-top: $verticelMargin;
       }

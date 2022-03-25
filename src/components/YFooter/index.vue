@@ -83,6 +83,7 @@ export default {
     width: 500px;
     .p1{
       img{
+        margin-left: 20%;
         display: block;
         width: 170px;
         height: 170px;
@@ -90,6 +91,12 @@ export default {
       }
     }
   }
+}
+@media screen and (max-width: 600px) {
+    #foot{
+      padding: 15px 0;
+      
+    }
 }
 @media screen and (max-width: 600px) {
     #foot{
@@ -124,6 +131,7 @@ export default {
           width: 80px;
           height: 80px;
           margin-top: 15px;
+          margin-left: 0;
         }
       }
     }
