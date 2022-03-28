@@ -214,7 +214,7 @@
           <el-tab-pane class="com-panel-2" :label="specialty.title" name="specialty">
               <ul class="list">
                 <li v-for="(item, i) in specialty.data.slice(0, 10)" :key="i">
-                  <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
+                  <router-link class="fs16 h" :to="getDepPath(item)">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
                       <span class="des">{{item.contentTitle}}</span>
@@ -420,6 +420,7 @@ export default {
       },
       specialty: {
         title: "特色专科",
+        targetTitle: '医院科室',
         req: getArticlesList,
         params: {},
         categoryPath: "", 
@@ -449,7 +450,10 @@ export default {
       console.error("n is not a number");
       return 0;
     },
-
+    getDepPath(item){
+      let lastIndex = item.categoryPath.lastIndexOf('/');
+      return item.categoryPath.substr(0, lastIndex)
+    },
     async init(){
       this.moduleNames.forEach(name=> {
         let m = this[name];
