@@ -247,6 +247,8 @@ export default {
       .el-menu{
         &.el-menu--horizontal{
           border-color: $mainTheme;
+          display: flex;
+          justify-content: space-between;
         }
         
         .el-menu-item, .el-submenu__title{
@@ -258,6 +260,9 @@ export default {
           }
         }
         .el-menu-item{
+          flex: 1;
+          text-align: center;
+          padding: 0;
           &.active{
             border-bottom: 0;
             background-color: rgb(129, 39, 41)!important;
@@ -265,11 +270,18 @@ export default {
         }
 
         .el-submenu{
+          flex: 1;
+          text-align: center;
+          padding: 0;
+          position: relative;
           &.active{
             >.el-submenu__title{
               border-bottom: 0;
               background-color: rgb(129, 39, 41)!important;
             }
+          }
+          >.el-menu--horizontal{
+            width: 100%;
           }
           .el-icon-arrow-down{
             display: none;
