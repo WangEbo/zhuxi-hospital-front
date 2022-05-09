@@ -21,13 +21,23 @@
         <div class="text">{{config.beianCode}}</div>
       </div>
       <div class="row2">
-        <div class="p1"><img :src="config.wxQrCode" alt=""></div>
+        <div class="p1">
+          <ul>
+            <li>
+              <div class="li-img"><img :src="config.wxQrCode" alt=""></div>
+              <div class="desc">关注“竹溪中医”获取健康知识{{config.wxQrCodeDesc}}</div>
+            </li>
+            <li>
+              <div class="li-img"><img :src="config.wxQrCodeTwo" alt=""></div>
+              <div class="desc">关注“竹溪县中医院” 为您提供“一站式”诊疗服务{{config.wxQrCodeTwoDesc}}</div>
+            </li>
+          </ul>
+        </div>
         <div class="p2 share"></div>
       </div>
     </div>
   </footer>
 </template>
-
 <script>
 import { getConfig } from "@/utils/common";
 import { mapGetters } from 'vuex'
@@ -81,21 +91,38 @@ export default {
   }
   .row2{
     width: 500px;
+    ul{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      li{
+        width: 170px;
+        .desc{
+          font-size: 14px;
+          margin-top: 10px;
+        }
+      }
+    }
     .p1{
       img{
-        margin-left: 20%;
         display: block;
-        width: 170px;
+        width: 100%;
         height: 170px;
         margin-top: 30px;
       }
     }
   }
 }
+@media screen and (max-width: 1500px) {
+    #foot{
+      .page-inner{
+        width: 80%;
+      }
+    }
+}
 @media screen and (max-width: 600px) {
     #foot{
       padding: 15px 0;
-      
     }
 }
 @media screen and (max-width: 600px) {
@@ -124,10 +151,16 @@ export default {
       }
     }
     .row2{
-      width: 80;
+      width: 100%;
       .p1{
+        ul{
+          justify-content: space-between;
+        }
+        .li-img{
+          text-align: center;
+        }
         img{
-          display: block;
+          display: inline-block;
           width: 80px;
           height: 80px;
           margin-top: 15px;

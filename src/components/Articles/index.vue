@@ -4,7 +4,7 @@
     <Breadcrumb></Breadcrumb>
     <div class="content-wrap">
       <div class="article" >
-        <div class="content" v-html="detail.contentDetails"></div>
+        <div class="content ql-editor" v-html="detail.contentDetails"></div>
       </div>
       <Recommend></Recommend>
       </div>
@@ -15,7 +15,8 @@ import { getArticleById, getArticlesList } from "@/api/content";
 import Recommend from '../Recommend'
 import Breadcrumb from '@/components/Breadcrumb'
 import { mapGetters } from 'vuex'
-
+import '../../styles/quill.core.css';
+import '../../styles/quill.snow.css';
 const defaultDetail = {
   contentTitle: null,//标题
   contentDatetime: null,//发布时间

@@ -7,14 +7,15 @@
       <span class="time" >{{detail.contentDatetime}}</span>
       <span>{{detail.contentAuthor}}</span>
     </div>
-    <div class="content" v-html="detail.contentDetails"></div>
+    <div class="content ql-editor" v-html="detail.contentDetails"></div>
   </div>
 </template>
 <script>
 import { getArticleById, getArticlesList } from "@/api/content";
 
 import { mapGetters } from 'vuex'
-
+import '../../styles/quill.core.css';
+import '../../styles/quill.snow.css';
 const defaultDetail = {
   contentTitle: null,//标题
   contentDatetime: null,//发布时间

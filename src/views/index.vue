@@ -108,7 +108,7 @@
           <el-tabs :value="'notice'">
             <el-tab-pane :label="notice.title" name="notice">
               <ul class="list">
-                <li v-for="(item, i) in notice.data.slice(0, 4)" :key="i">
+                <li v-for="(item, i) in notice.data.slice(0, 5)" :key="i">
                   <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
@@ -124,7 +124,7 @@
       </el-col>
       <el-col :span="14" :offset="1">
         <div class="y-tab">
-          <div class="more"><router-link :to="`${notice.categoryPath}`">更多>></router-link></div>
+          <div class="more"><router-link :to="`${bid.categoryPath}`">更多>></router-link></div>
           <el-tabs :value="'bid'" @tab-click="tabChange">
             <el-tab-pane class="news" :label="bid.title" name="bid">
               <ul class="list">
@@ -283,9 +283,9 @@ export default {
     },
     sliceCardMax(){
       if(deviceWidth>= 1366){
-        return 400
+        return 380
       }else{
-        return 240
+        return 230
       }
     }
   },
@@ -559,9 +559,9 @@ $verticelMargin: 32px;
         height: 100%;
       }
       .swiper-pagination-bullet{
-        width: 16px;
-        height: 16px;
-        line-height: 16px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
         color: #fff;
         background-color: rgba(0,0,0,0.4);
         opacity: 0.8;
@@ -582,9 +582,9 @@ $verticelMargin: 32px;
         font-weight: 600;
       }
       .top-news{
-        padding-bottom: 15px;
+        padding-bottom: 28px;
         border-bottom: 1px dashed #ccc;
-        margin-bottom: 15px;
+        margin-bottom: 28px;
         a.detail{
           width: 70px;
           margin-top: -26px;
@@ -593,7 +593,7 @@ $verticelMargin: 32px;
           }
         }
         h4.title, .content{
-          font-size: 16px;
+          font-size: 18px;
           margin: 10px;
           text-indent: 32px;
         }
@@ -608,7 +608,7 @@ $verticelMargin: 32px;
 
   .row2{ 
     .el-tab-pane{
-      height: 186px;
+      height: 210px;
       padding: 30px 40px;
     }
   }
@@ -625,7 +625,7 @@ $verticelMargin: 32px;
         color: $mainTheme;
       }
       a{
-        font-size: 14px;
+        font-size: 18px;
       }
     }
   }
@@ -649,7 +649,7 @@ $verticelMargin: 32px;
       border-radius: 6px;
     }
     p{
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 600;
       overflow: hidden;
       white-space: nowrap;
@@ -680,7 +680,7 @@ $verticelMargin: 32px;
       border-radius: 6px;
     }
     p{
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 600;
       overflow: hidden;
       white-space: nowrap;
@@ -703,7 +703,7 @@ $verticelMargin: 32px;
 
  .overview-pane{
    a{
-     font-size: 16px;
+     font-size: 18px;
    }
    .el-tab-pane{
      position: relative;
@@ -855,7 +855,7 @@ $verticelMargin: 32px;
           color: $mainTheme;
         }
         a{
-          font-size: 14px;
+          font-size: 18px;
         }
       }
     }
@@ -930,7 +930,7 @@ $verticelMargin: 32px;
     font-size: 12px;
     .more, .more a{
         line-height: 32px;
-        font-size: 14px;
+        font-size: 18px;
       }
     }
 
