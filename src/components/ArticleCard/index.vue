@@ -94,7 +94,7 @@ export default {
   }
   .row2{
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     color: $lightTextColor;
     margin: 15px;
     span{
@@ -102,7 +102,7 @@ export default {
     }
   }
   /deep/ .content{
-    font-size: 14px;
+    font-size: 16px;
     img{
       display: block;
       max-width: 100%;

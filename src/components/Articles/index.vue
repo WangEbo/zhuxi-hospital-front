@@ -80,7 +80,7 @@ export default {
   margin-right: 40px;
 }
 /deep/ .content{
-  font-size: 12px;
+  font-size: 16px;
   img{
     display: block;
     max-width: 100%;
