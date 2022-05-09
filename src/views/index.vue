@@ -283,9 +283,9 @@ export default {
     },
     sliceCardMax(){
       if(deviceWidth>= 1366){
-        return 380
+        return 360
       }else{
-        return 230
+        return 220
       }
     }
   },

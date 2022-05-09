@@ -25,11 +25,11 @@
           <ul>
             <li>
               <div class="li-img"><img :src="config.wxQrCode" alt=""></div>
-              <div class="desc">关注“竹溪中医”获取健康知识{{config.wxQrCodeDesc}}</div>
+              <div class="desc">{{config.wxQrCodeDesc}}</div>
             </li>
             <li>
               <div class="li-img"><img :src="config.wxQrCodeTwo" alt=""></div>
-              <div class="desc">关注“竹溪县中医院” 为您提供“一站式”诊疗服务{{config.wxQrCodeTwoDesc}}</div>
+              <div class="desc">{{config.wxQrCodeTwoDesc}}</div>
             </li>
           </ul>
         </div>
