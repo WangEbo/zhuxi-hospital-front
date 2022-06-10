@@ -54,12 +54,14 @@ ul.list{
       }
     }
     .des{
-      width: 65%;
+      width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    
+    .time{
+      display: none;
+    }
   }
 }
 

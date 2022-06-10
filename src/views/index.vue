@@ -36,7 +36,7 @@
                   <router-link class="fs16 h" :to="`${news.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.contentTitle}}</span>
+                      <span class="des" :title="item.contentTitle">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
                   </router-link>
@@ -112,7 +112,7 @@
                   <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.contentTitle}}</span>
+                      <span class="des" :title="item.contentTitle">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.contentDatetime && item.contentDatetime.substr(0, 7)}}</div>
                   </router-link>
@@ -132,7 +132,7 @@
                   <router-link class="fs16 h" :to="`${item.categoryPath}/detail/${item.id}`">
                     <div class="des">
                       <span class="icnon iconfont icon-arrow-right"></span>
-                      <span class="des">{{item.contentTitle}}</span>
+                      <span class="des" :title="item.contentTitle">{{item.contentTitle}}</span>
                     </div>
                     <div class="time">{{item.createTime && item.createTime.substr(0, 7)}}</div>
                   </router-link>
