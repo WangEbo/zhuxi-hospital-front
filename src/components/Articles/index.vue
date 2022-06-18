@@ -89,6 +89,9 @@ export default {
     width: 100%;
     height: auto!important;
   }
+  a{
+      color: #4994df;
+    }
 }
 @media screen and(max-width: 600px){
   .article{

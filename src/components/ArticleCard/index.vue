@@ -111,6 +111,9 @@ export default {
       width: 100%;
       height: auto!important;
     }
+    a{
+      color: #4994df;
+    }
   }
    
 }

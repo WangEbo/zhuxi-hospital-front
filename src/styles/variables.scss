@@ -62,7 +62,14 @@ ul.list{
     .time{
       display: none;
     }
+
+    .list-card{
+      .time{
+        display: block;
+      }
+    }
   }
+  
 }
 
 
