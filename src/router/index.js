@@ -159,7 +159,6 @@ const getDoctorRoute = (doctorRoute, parentMenu, childrenWrap, level, type)=> {
 const generateRouter = async ()=> {
   let menus = await getMenu();
   menus = menus.data
-  console.log(menus);
   //根据配置生成路由
 
   const _generateRouter = (menus, parentMenu, childrenWrap, level)=> {
@@ -188,7 +187,6 @@ const generateRouter = async ()=> {
       //科室特色与名医专家路由需特殊处理
       if(level == 1 && (childRoute.categoryTitle == DOCTOR_MENU_TITLE || childRoute.categoryTitle == DEPARTMENT_MENU_TITLE)){
         getDoctorRoute(childRoute, parentMenu, childRoute.children, level, childRoute.categoryTitle)
-        console.log(childRoute.categoryTitle, childRoute);
         continue
       }
 
@@ -227,8 +225,6 @@ const generateRouter = async ()=> {
 
     { path: "/404", component: () => import("@/views/404"), hidden: true },
   ]
-
-  console.log(routers);
 
   const router = new VueRouter({
     // mode: "history", //后端支持可开

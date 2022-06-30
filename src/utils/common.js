@@ -54,7 +54,6 @@ export const walkArray = (array, childPath, level, parent, fn) => {
 export const imgUrlEncode = (path)=> {
   if(!path)return "";
   let r_path = path.replace(/\s/g, encodeURIComponent(" "));
-  console.log(r_path);
   return r_path;
 };
 

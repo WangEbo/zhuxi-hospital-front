@@ -36,7 +36,7 @@
           </template>
         </el-menu>
       </div>
-      <div class="banner">
+      <div class="banner" v-show="showBanner">
         <YSwiper :list="bannerList" :config="{pagination: null}">
           <div v-for="(item, i) in bannerList" :key="i" :style="{'background-image': `url('${imgUrlEncode(item.pic)}')`}" class="swiper-slide">
           </div>
@@ -85,7 +85,11 @@ export default {
     curPage(){
       return this.curLevel1Menu || {}
     },
-    
+    showBanner(){
+      // 当前设备是移动设备
+      const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent)
+      return  this.$route.path === '/shouye' || isMobile
+    }
   },
   data(){
     return{
@@ -140,7 +144,6 @@ export default {
       }
     },
     search(e){
-      console.log("搜索", this.keywords);
       let k = this.keywords.trim();
       let query = getUrlQuery();
       let keyword = decodeURIComponent(query.k);
@@ -160,7 +163,6 @@ export default {
     setActiveMenu(){
       let index1 = this.menus.indexOf(this.curLevel1Menu) + 1
       this.activeIndex = index1+'';
-      console.log(this.activeIndex);
       this.$set(this.curLevel1Menu, 'active', true)
     },
     goTarget(menu){

@@ -116,7 +116,7 @@ export default {
         let m = this[name];
 
         let { matchNode } = findNodeById(this.menus, m.targetTitle, 'childs', 'categoryTitle')
-        console.log(matchNode);
+
         Object.assign(m, {
           path: matchNode.path,
           categoryPath: matchNode.categoryPath

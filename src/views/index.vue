@@ -17,7 +17,6 @@
 
             <el-tab-pane class="com-panel-1" :label="news.title" name="news">
               <div class="top-news">
-                <router-link :to="`${news.categoryPath}/detail/${news.topItem().id}`">
                   <h4 class="title">{{news.topItem().contentTitle}}</h4>
                   <div class="ellipsis">
                     <div class="ellipsis-container">
@@ -28,7 +27,6 @@
                       </div>
                     </div>
                   </div>
-                </router-link>
                 
               </div>
               <ul class="list">
@@ -459,16 +457,12 @@ export default {
         let m = this[name];
 
         //优先根据 targetTitle 匹配
-        console.log('menus:xxxxx');
-        console.log(this.menus);
         let { matchNode } = findNodeById(this.menus, (m.targetTitle || m.title), 'childs', 'categoryTitle')
 
         if(matchNode){
           m.categoryPath = matchNode.categoryPath
-          console.log(matchNode);
           this.sendQeq(m, matchNode)
         }else{
-          console.log('no-matchNode');
         }
       });
     },
@@ -482,7 +476,6 @@ export default {
         categoryTitle: matchNode.categoryTitle,
       })
       getArticlesList(params).then(res=> {
-        console.log(matchNode);
         if(matchNode.categoryType == '1'){// 列表类型模块
           this.$set(m, "data", res.data.list);
         }else if(matchNode.categoryType == '2' && res.data.total == 1){ //  图文类型模块

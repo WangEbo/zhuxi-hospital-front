@@ -45,7 +45,6 @@ export default {
     ...mapGetters(['curLevel1Menu', 'curMenu']),
   },
   created() {
-    console.log('init');
     this.init()
   },
   mounted(){

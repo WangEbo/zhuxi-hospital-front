@@ -132,7 +132,6 @@ export default {
   data() {
     let self = this;
     var checkVccCode = (rule, value, callback) => {
-      console.log('校验验证码');
       if (!value) {
         return callback(new Error('验证码不能为空'));
       } else {
