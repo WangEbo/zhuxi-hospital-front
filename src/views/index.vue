@@ -4,9 +4,9 @@
       <el-col :span="9">
         <div class="banner">
           <YSwiper :list="news.data" :config="{paginationClickable: true,paginationBulletRender: paginationBulletRender}">
-            <div :style="{'background-image': `url('${imgUrlEncode(item.contentImg)}')`}" class="swiper-slide" v-for="(item, i) in news.data.slice(0,5)" :key="i">
+            <router-link :to="`${news.categoryPath}/detail/${item.id}`" :style="{'background-image': `url('${imgUrlEncode(item.contentImg)}')`}" class="swiper-slide" v-for="(item, i) in news.data.slice(0,5)" :key="i">
               <p class="slide-des">{{item.des}}</p>
-            </div>
+            </router-link>
           </YSwiper>
         </div>
       </el-col>
